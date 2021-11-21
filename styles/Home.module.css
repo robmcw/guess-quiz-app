@@ -3,7 +3,7 @@
 }
 
 .main {
-  min-height: 100vh;
+  min-height: 10vh;
   padding: 4rem 0;
   flex: 1;
   display: flex;
@@ -43,17 +43,66 @@
   margin: 0;
   line-height: 1.15;
   font-size: 4rem;
+  margin: 4rem 0;
+}
+
+.fillblocks { 
+  padding: 2rem;
+  width: 50%;
+
+}
+
+.fillblock {
+  height: 10rem;
+  background-color: #0070f3;
+  list-style: none;
+  display: inline-block;
+  margin: 0.5rem;
+  color: #fafafa;
+  text-align: center;
+  padding: 5rem 0;
+}
+
+.subtitle {
+
+  line-height: 1.5;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .title,
+.subtitle,
 .description {
   text-align: center;
 }
 
 .description {
-  margin: 4rem 0;
+  margin: 0 0;
   line-height: 1.5;
   font-size: 1.5rem;
+}
+
+.option input{ 
+  width: 2rem;
+  height: 2rem;
+  box-sizing: border-box;
+  margin: 1rem;
+  align-items: right;
+  text-align: center;
+  font-weight: 700;
+}
+
+.button {
+  background-color: #18A0FB; 
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-block;
+  margin: 2rem;
+  font-size: 1.25rem;
+  border-radius: 0.25rem;
+ 
 }
 
 .code {
