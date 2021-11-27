@@ -63,6 +63,32 @@
   padding: 5rem 0;
 }
 
+.result {
+  display: block;
+}
+
+.result li {
+  height: 10rem;
+  background-color: #0070f3;
+  list-style: none;
+  display: inline-block;
+  margin: 0.5rem;
+  color: #fafafa;
+  text-align: center;
+  padding: 5rem 0;
+}
+
+
+.result p {
+  height: 10rem;
+  list-style: none;
+  display: inline-block;
+  margin: 0.5rem;
+  color: #000000;
+  font-size: 1.5rem;
+
+}
+
 .subtitle {
 
   line-height: 1.5;

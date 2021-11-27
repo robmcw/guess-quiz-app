@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import Link from 'next/dist/client/link'
 import styles from '../../styles/Home.module.css'
 
 export default function Question() {
@@ -22,23 +23,34 @@ export default function Question() {
 
             <main className={styles.main}>
                 <h1 className={styles.title}>
-                    Radioactivity exposure
+                    You guessed right!
                 </h1>
 
                 <p className={styles.subtitle}>
-                    You guessed...
-                </p>
-
-
-                <p className={styles.subtitle}>
-                    The results...
+                    Wilst bananas are pretty radioactive when compared to other fruit and veg, just taking a flgiht from NY to LA exposes you to 1000% times more. At high altitude the air gets thinner and thinner air thus means fewer molecules to deflect incoming cosmic rays – radiation from outer space.
                 </p>
 
                 <ul className={styles.fillblocks}>
-                    <li style={{ width: option1 }} className={styles.fillblock}>1</li>
-                    <li style={{ width: option2 }} className={styles.fillblock}>2</li>
-                    <li style={{ width: option3 }} className={styles.fillblock}>3</li>
+                    <div className={styles.result}>
+                        <li style={{ width: option1 }} >10Bq</li>
+                        <p>Banana</p>
+                    </div>
+
+                    <div className={styles.result}>
+                        <li style={{ width: option2 }} className={styles.fillblockresult}>20Bq</li>
+                        <p>X-ray</p>
+                    </div>
+
+                    <div className={styles.result}>
+                        <li style={{ width: option3 }} className={styles.fillblockresult}>60Bq</li>
+                        <p>NY-LA flight</p>
+                    </div>
                 </ul>
+
+                {/* To do: generate next question numner (n+1) to generate next question */}
+                <Link href={`/question/${questionId}`} passHref>
+                    <button className={styles.button}> Next quesiton </button>
+                </Link>
 
             </main>
 

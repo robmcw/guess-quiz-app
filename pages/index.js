@@ -4,9 +4,10 @@ import styles from '../styles/Home.module.css'
 
 export default function Home() {
 
-  const questionId = "22"
+  const questionId = "1"
 
   return (
+
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
@@ -14,9 +15,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      {/* Move below to own component? */}
+
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Suprising scales
+          Suprising Scales
         </h1>
 
         <ul className={styles.fillblocks}>
@@ -36,10 +39,6 @@ export default function Home() {
         <Link href={`/question/${questionId}`} passHref>
           <button className={styles.button}> Start </button>
         </Link>
-
-
-
-
 
 
       </main>

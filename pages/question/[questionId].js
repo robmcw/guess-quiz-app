@@ -1,18 +1,71 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-
 import styles from '../../styles/Home.module.css'
+import { MongoClient } from 'mongodb'
 
-export default function Question() {
+export async function getStaticPaths() {
+    return {
+        // To do: Ids should be fetched dynamically
+        fallback: true,
+        paths: [
+            {
+                params: {
+                    questionId: '1'
+                }
+            }
+        ]
+    }
+}
+
+export async function getStaticProps(context) {
+
+    require('dotenv').config();
+
+    const client = await MongoClient.connect(process.env.MONGODBCREDENTIALS);
+
+    const db = client.db();
+
+    const questionsCollection = db.collection('questions');
+
+    const questions = await questionsCollection.find().toArray();
+
+    client.close()
+
+    const questionId = context.params.questionId;
+
+    console.log(questionId);
+
+    return {
+        props: {
+            questions: questions.map(questions => ({
+                title: questions.title,
+                description: questions.description,
+
+                option1Text: questions.option1.text,
+                option1Percentage: questions.option1.percentage,
+
+                option2Text: questions.option2.text,
+                option2Percentage: questions.option2.percentage,
+
+                option3Text: questions.option3.text,
+                option3Percentage: questions.option3.percentage,
+                id: questions._id.toString()
+            }))
+        }
+    }
+
+}
+
+export default function Question(props) {
     const router = useRouter()
     const {
         query: { questionId },
     } = router
 
-    const option1 = "10%"
-    const option2 = "20%"
-    const option3 = "60%"
+    const option1percentage = props.questions[0].option1Percentage + "%";
+    const option2percentage = props.questions[0].option2Percentage + "%";
+    const option3percentage = props.questions[0].option3Percentage + "%";
 
     return (
         <div className={styles.container}>
@@ -24,35 +77,35 @@ export default function Question() {
 
             <main className={styles.main}>
                 <h1 className={styles.title}>
-                    Radioactivity exposure
+                    {props.questions[0].title}
                 </h1>
 
                 <p className={styles.subtitle}>
-                    Which box is which?
+                    {props.questions[0].description}
                 </p>
 
 
                 <ul className={styles.fillblocks}>
-                    <li style={{ width: option1 }} className={styles.fillblock}>1</li>
-                    <li style={{ width: option2 }} className={styles.fillblock}>2</li>
-                    <li style={{ width: option3 }} className={styles.fillblock}>3</li>
+                    <li style={{ width: option1percentage }} className={styles.fillblock}>1</li>
+                    <li style={{ width: option2percentage }} className={styles.fillblock}>2</li>
+                    <li style={{ width: option3percentage }} className={styles.fillblock}>3</li>
                 </ul>
 
                 <div className={styles.option}>
                     <form>
                         <p>
                             <input type="text"></input>
-                            <label> Eating a banana </label>
+                            <label>  {props.questions[0].option1Text}</label>
 
                         </p>
                         <p>
                             <input type="text"></input>
-                            <label> Flight from New York to LA </label>
+                            <label> {props.questions[0].option2Text} </label>
 
                         </p>
                         <p>
                             <input type="text"></input>
-                            <label> Dental X-ray </label>
+                            <label> {props.questions[0].option3Text}</label>
                         </p>
                     </form>
                 </div>
