@@ -39,8 +39,6 @@ export default function Home() {
         <Link href={`/question/${questionId}`} passHref>
           <button className={styles.button}> Start </button>
         </Link>
-
-
       </main>
 
       <footer className={styles.footer}>

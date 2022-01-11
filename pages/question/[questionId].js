@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import styles from '../../styles/Home.module.css'
 import { MongoClient } from 'mongodb'
+import Piechart from '../components/piechart'
 
 export async function getStaticPaths() {
     return {
@@ -34,22 +35,21 @@ export async function getStaticProps(context) {
 
     const questionId = context.params.questionId;
 
-    console.log(questionId);
-
     return {
         props: {
             questions: questions.map(questions => ({
                 title: questions.title,
                 description: questions.description,
+                unit: questions.unit,
 
                 option1Text: questions.option1.text,
-                option1Percentage: questions.option1.percentage,
+                option1Amount: questions.option1.amount,
 
                 option2Text: questions.option2.text,
-                option2Percentage: questions.option2.percentage,
+                option2Amount: questions.option2.amount,
 
                 option3Text: questions.option3.text,
-                option3Percentage: questions.option3.percentage,
+                option3Amount: questions.option3.amount,
                 id: questions._id.toString()
             }))
         }
@@ -57,15 +57,19 @@ export async function getStaticProps(context) {
 
 }
 
+
+
+
 export default function Question(props) {
+
     const router = useRouter()
     const {
         query: { questionId },
     } = router
 
-    const option1percentage = props.questions[0].option1Percentage + "%";
-    const option2percentage = props.questions[0].option2Percentage + "%";
-    const option3percentage = props.questions[0].option3Percentage + "%";
+    const option1Amount = props.questions[0].option1Amount;
+    const option2Amount = props.questions[0].option2Amount;
+    const option3Amount = props.questions[0].option3Amount;
 
     return (
         <div className={styles.container}>
@@ -76,39 +80,16 @@ export default function Question(props) {
             </Head>
 
             <main className={styles.main}>
-                <h1 className={styles.title}>
-                    {props.questions[0].title}
+                <h1 className={styles.subtitle}>
+                    Here are 3 {props.questions[0].title}. Click one to match it to a scenario.
                 </h1>
 
-                <p className={styles.subtitle}>
-                    {props.questions[0].description}
-                </p>
-
-
-                <ul className={styles.fillblocks}>
-                    <li style={{ width: option1percentage }} className={styles.fillblock}>1</li>
-                    <li style={{ width: option2percentage }} className={styles.fillblock}>2</li>
-                    <li style={{ width: option3percentage }} className={styles.fillblock}>3</li>
-                </ul>
-
-                <div className={styles.option}>
-                    <form>
-                        <p>
-                            <input type="text"></input>
-                            <label>  {props.questions[0].option1Text}</label>
-
-                        </p>
-                        <p>
-                            <input type="text"></input>
-                            <label> {props.questions[0].option2Text} </label>
-
-                        </p>
-                        <p>
-                            <input type="text"></input>
-                            <label> {props.questions[0].option3Text}</label>
-                        </p>
-                    </form>
-                </div>
+                <Piechart
+                    option1={option1Amount}
+                    option2={option2Amount}
+                    option3={option3Amount}
+                    unit={props.questions[0].unit}
+                />
 
 
 
