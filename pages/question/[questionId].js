@@ -1,9 +1,11 @@
+import { MongoClient } from 'mongodb'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import Link from 'next/link'
+import Piechart from '../components/Piechart'
+import OptionsModal from '../components/OptionsModal'
 import styles from '../../styles/Home.module.css'
-import { MongoClient } from 'mongodb'
-import Piechart from '../components/piechart'
 
 export async function getStaticPaths() {
     return {
@@ -21,19 +23,16 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
 
+    const questionId = context.params.questionId;
+
+    // Call DB and bring back Question
     require('dotenv').config();
-
     const client = await MongoClient.connect(process.env.MONGODBCREDENTIALS);
-
     const db = client.db();
-
     const questionsCollection = db.collection('questions');
-
     const questions = await questionsCollection.find().toArray();
-
     client.close()
 
-    const questionId = context.params.questionId;
 
     return {
         props: {
@@ -44,12 +43,15 @@ export async function getStaticProps(context) {
 
                 option1Text: questions.option1.text,
                 option1Amount: questions.option1.amount,
+                option1Index: 0,
 
                 option2Text: questions.option2.text,
                 option2Amount: questions.option2.amount,
+                option2Index: 1,
 
                 option3Text: questions.option3.text,
                 option3Amount: questions.option3.amount,
+                option3Index: 2,
                 id: questions._id.toString()
             }))
         }
@@ -57,19 +59,14 @@ export async function getStaticProps(context) {
 
 }
 
-
-
-
 export default function Question(props) {
+
+    const [showModal, setShowModal] = useState(false);
 
     const router = useRouter()
     const {
         query: { questionId },
     } = router
-
-    const option1Amount = props.questions[0].option1Amount;
-    const option2Amount = props.questions[0].option2Amount;
-    const option3Amount = props.questions[0].option3Amount;
 
     return (
         <div className={styles.container}>
@@ -85,16 +82,31 @@ export default function Question(props) {
                 </h1>
 
                 <Piechart
-                    option1={option1Amount}
-                    option2={option2Amount}
-                    option3={option3Amount}
+                    onClick={(option) =>
+                        setShowModal(true)
+                    }
+                    option1Text={props.questions[0].option1Text}
+                    option1Amount={props.questions[0].option1Amount}
+                    option1Index={props.questions[0].option1Index}
+                    option2Text={props.questions[0].option2Text}
+                    option2Amount={props.questions[0].option2Amount}
+                    option2Index={props.questions[0].option2Index}
+                    option3Text={props.questions[0].option3Text}
+                    option3Amount={props.questions[0].option3Amount}
+                    option3Index={props.questions[0].option3Index}
                     unit={props.questions[0].unit}
                 />
 
-
+                <OptionsModal
+                    onClose={() => setShowModal(false)}
+                    show={showModal} >
+                </OptionsModal>
 
                 <Link href={`/result/${questionId}`} passHref>
-                    <button className={styles.button}> Show result </button>
+                    <button
+                        className={styles.button}>
+                        Show result
+                    </button>
                 </Link>
 
             </main>
