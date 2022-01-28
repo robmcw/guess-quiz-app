@@ -1,12 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import ReactDOM from "react-dom";
 import styles from "../../styles/OptionsModal.module.css"
+import OptionsContext from "../../context/options-context";
 
 // Check if question option has been selected beforehand. Ommit if it has. 
 
 // On click, communicate selection and match to amount selection to STATE in Question component
 
-const OptionsModal = ({ show, onClose, event, buttonId }) => {
+const OptionsModal = ({ show, onClose, onSelectOption0, onSelectOption1, onSelectOption2 }) => {
+
+    const ctx = useContext(OptionsContext);
 
     // Portal needed for modal. Here we put this in state to be used later.
     const [isBrowser, setIsBrowser] = useState(false);
@@ -20,6 +23,20 @@ const OptionsModal = ({ show, onClose, event, buttonId }) => {
         onClose();
     };
 
+    const addSelectionHandler = (buttonId) => {
+        switch (buttonId) {
+            case 0:
+                onSelectOption0();
+                break;
+            case 1:
+                onSelectOption1();
+                break;
+            case 2:
+                onSelectOption2();
+                break;
+        }
+    }
+
     // If show prop = true, show modal. Else null. 
     const modalContent = show ? (
         <div className={styles.modalOverlay} >
@@ -28,18 +45,18 @@ const OptionsModal = ({ show, onClose, event, buttonId }) => {
                     <div className={styles.modalButtonGroup}>
                         <button
                             onClick={event => {
-                                // addSelectionHandler(event, button1)
+                                addSelectionHandler(0)
                                 handleCloseClick()
                             }}
                         > Eating a banana</button>
                         <button
                             onClick={event => {
-                                // addSelectionHandler(event, button2)
+                                addSelectionHandler(1)
                                 handleCloseClick()
                             }}
                         >Flying from LA to New York</button>
                         <button onClick={event => {
-                            // addSelectionHandler(event, button3)
+                            addSelectionHandler(2)
                             handleCloseClick()
                         }}>
                             Having a dental X-ray</button>
@@ -59,36 +76,36 @@ const OptionsModal = ({ show, onClose, event, buttonId }) => {
         return null;
     }
 
-    const addSelectionHandler = (event, buttonId) => {
-        console.log(event)
-        console.log(buttonId)
-    }
+    // const addSelectionHandler = (event, buttonId) => {
+    //     console.log(event)
+    //     console.log(buttonId)
+    // }
 
-    const button1 = "Button 1";
-    const button2 = "Button 2";
-    const button3 = "Button 3";
+    // const button1 = "Button 1";
+    // const button2 = "Button 2";
+    // const button3 = "Button 3";
 
-    return (
-        <div className={styles.main} >
-            <div className={styles.buttongroup}>
-                <button
-                    onClick={event => {
-                        addSelectionHandler(event, button1)
-                    }}
-                > Eating a banana</button>
-                <button
-                    onClick={event => {
-                        addSelectionHandler(event, button2)
-                    }}
-                >Flying from LA to New York</button>
-                <button onClick={event => {
-                    addSelectionHandler(event, button3)
-                }}>
-                    Having a dental X-ray</button>
-            </div>
+    // return (
+    //     <div className={styles.main} >
+    //         <div className={styles.buttongroup}>
+    //             <button
+    //                 onClick={event => {
+    //                     addSelectionHandler(event, button1)
+    //                 }}
+    //             > Eating a banana</button>
+    //             <button
+    //                 onClick={event => {
+    //                     addSelectionHandler(event, button2)
+    //                 }}
+    //             >Flying from LA to New York</button>
+    //             <button onClick={event => {
+    //                 addSelectionHandler(event, button3)
+    //             }}>
+    //                 Having a dental X-ray</button>
+    //         </div>
 
-        </div>
-    )
+    //     </div>
+    // )
 }
 
 export default OptionsModal;
