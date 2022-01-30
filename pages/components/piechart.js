@@ -1,13 +1,11 @@
 import { Pie } from 'react-chartjs-2'
 
-const Piechart = ({ onClick, option1Text, option1Amount, option1Index, option2Text, option2Amount, option2Index, option3Text, option3Amount, option3Index, unit }) => {
+const Piechart = ({ onClick, setSelectPie, option1Text, option1Amount, option1Index, option2Text, option2Amount, option2Index, option3Text, option3Amount, option3Index, unit }) => {
 
     const clickHandler = (option) => {
-        console.log('Open options modal')
-        console.log(option)
-        onClick(option)
+        onClick()
+        setSelectPie(option)
         // TODO Set SELECTED state to SELECTED for option X
-
     }
 
     // If Option X is selected in the state, background colour for that option should be gray. 
@@ -62,20 +60,20 @@ const Piechart = ({ onClick, option1Text, option1Amount, option1Index, option2Te
                 options={{
                     onClick(evt) {
                         const points = this.getElementAtEvent(evt, 'nearest', { intersect: true }, true);
-                        console.log(points[0]._index)
 
-                        // Check which segment has been selected using index
+                        // Check which segment has been selected using index and pass to click handler. 
                         switch (points[0]._index) {
                             case option1Index:
-                                clickHandler('Option 1');
+                                clickHandler(0);
+                                break;
                             case option2Index:
-                                clickHandler('Option 2');
+                                clickHandler(1);
+                                break;
                             case option3Index:
-                                clickHandler('Option 3');
+                                clickHandler(2);
                                 break;
                         }
                     },
-
                     maintainAspectRatio: false,
                     tooltips: {
                         enabled: false
@@ -83,7 +81,6 @@ const Piechart = ({ onClick, option1Text, option1Amount, option1Index, option2Te
                     legend: {
                         display: true
                     }
-
                 }}
             />}
         </div>

@@ -1,111 +1,109 @@
 import React, { useEffect, useState, useContext } from "react";
 import ReactDOM from "react-dom";
 import styles from "../../styles/OptionsModal.module.css"
-import OptionsContext from "../../context/options-context";
 
 // Check if question option has been selected beforehand. Ommit if it has. 
 
 // On click, communicate selection and match to amount selection to STATE in Question component
 
-const OptionsModal = ({ show, onClose, onSelectOption0, onSelectOption1, onSelectOption2 }) => {
-
-    const ctx = useContext(OptionsContext);
+const OptionsModal = ({ show, onClose, pieSelect, onGuess }) => {
 
     // Portal needed for modal. Here we put this in state to be used later.
     const [isBrowser, setIsBrowser] = useState(false);
+    const [option1Selected, setOption1Selected] = useState(false);
+    const [option2Selected, setOption2Selected] = useState(false);
+    const [option3Selected, setOption3Selected] = useState(false);
 
     useEffect(() => {
         setIsBrowser(true);
     }, []);
 
     // Close modal when option button is clicked
-    const handleCloseClick = () => {
+    const addSelectionHandler = (buttonId) => {
+        const guess = {
+            [pieSelect]: buttonId
+        };
+        onGuess(guess)
+        switch (buttonId) {
+            case 0:
+                setOption1Selected(true)
+                break;
+            case 1:
+                setOption2Selected(true)
+                break;
+            case 2:
+                setOption3Selected(true)
+                break;
+        }
         onClose();
     };
 
-    const addSelectionHandler = (buttonId) => {
-        switch (buttonId) {
-            case 0:
-                onSelectOption0();
-                break;
-            case 1:
-                onSelectOption1();
-                break;
-            case 2:
-                onSelectOption2();
-                break;
+    const option1 = () => {
+        if (option1Selected === false) {
+            return (
+                <button
+                    onClick={event => {
+                        addSelectionHandler(0)
+                    }}
+                > Eating a banana</button>
+            )
         }
     }
 
+    const option2 = () => {
+        if (option2Selected === false) {
+            return (
+                <button
+                    onClick={event => {
+                        addSelectionHandler(1)
+                    }}
+                >Flying from LA to New York</button>
+            )
+        }
+    }
+
+    const option3 = () => {
+        if (option3Selected === false) {
+            return (
+                <button onClick={event => {
+                    addSelectionHandler(2)
+                }}>
+                    Having a dental X-ray</button>
+            )
+        }
+    }
+
+    // TODO: if option has been selected, do not show
     // If show prop = true, show modal. Else null. 
-    const modalContent = show ? (
-        <div className={styles.modalOverlay} >
-            <div className={styles.modal} >
-                <div className={styles.modalHeader} >
-                    <div className={styles.modalButtonGroup}>
-                        <button
-                            onClick={event => {
-                                addSelectionHandler(0)
-                                handleCloseClick()
-                            }}
-                        > Eating a banana</button>
-                        <button
-                            onClick={event => {
-                                addSelectionHandler(1)
-                                handleCloseClick()
-                            }}
-                        >Flying from LA to New York</button>
-                        <button onClick={event => {
-                            addSelectionHandler(2)
-                            handleCloseClick()
-                        }}>
-                            Having a dental X-ray</button>
+    const modalContent = () => {
+        if (show) {
+            return (
+                <div className={styles.modalOverlay} >
+                    <div className={styles.modal} >
+                        <div className={styles.modalHeader} >
+                            <div className={styles.modalButtonGroup}>
+                                <div className={styles.modalButtonGroup}></div>
+                                {option1()}
+                                {option2()}
+                                {option3()}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    ) : null;
+                </div>)
+        } else {
+            null
+        }
+    }
 
     // Portal needed for modal
     if (isBrowser) {
         return ReactDOM.createPortal(
-            modalContent,
+            modalContent(),
             document.getElementById("modal-root")
         );
     } else {
         return null;
     }
-
-    // const addSelectionHandler = (event, buttonId) => {
-    //     console.log(event)
-    //     console.log(buttonId)
-    // }
-
-    // const button1 = "Button 1";
-    // const button2 = "Button 2";
-    // const button3 = "Button 3";
-
-    // return (
-    //     <div className={styles.main} >
-    //         <div className={styles.buttongroup}>
-    //             <button
-    //                 onClick={event => {
-    //                     addSelectionHandler(event, button1)
-    //                 }}
-    //             > Eating a banana</button>
-    //             <button
-    //                 onClick={event => {
-    //                     addSelectionHandler(event, button2)
-    //                 }}
-    //             >Flying from LA to New York</button>
-    //             <button onClick={event => {
-    //                 addSelectionHandler(event, button3)
-    //             }}>
-    //                 Having a dental X-ray</button>
-    //         </div>
-
-    //     </div>
-    // )
 }
 
 export default OptionsModal;
