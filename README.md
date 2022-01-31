@@ -1,4 +1,7 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Guess quiz app
+
+A prototype for a quiz app, created with Next. The concept was born out of a quiz that I took that involved matching quantities of various things (radioactive dose on exposure, personal wealth, population), to scenarios. For example, match the populations 9,000,000, 15,000,00 and 3,000,000 to the cities Lagos, Buenos Aires and New York. It felt like something that would fit nicely into a single page application using Next.js. 
+
 
 ## Getting Started
 
