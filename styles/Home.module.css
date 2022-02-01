@@ -118,19 +118,6 @@
   font-weight: 700;
 }
 
-.button {
-  background-color: #0070f3 ; 
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  display: inline-block;
-  margin: 2rem;
-  font-size: 1.25rem;
-  border-radius: 0.25rem;
-
-}
-
 .code {
   background: #fafafa;
   border-radius: 5px;

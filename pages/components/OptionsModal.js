@@ -6,7 +6,7 @@ import styles from "../../styles/OptionsModal.module.css"
 
 // On click, communicate selection and match to amount selection to STATE in Question component
 
-const OptionsModal = ({ show, onClose, pieSelect, onGuess }) => {
+const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2Text, option3Text }) => {
 
     // Portal needed for modal. Here we put this in state to be used later.
     const [isBrowser, setIsBrowser] = useState(false);
@@ -19,9 +19,9 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess }) => {
     }, []);
 
     // Close modal when option button is clicked
-    const addSelectionHandler = (buttonId) => {
+    const addSelectionHandler = (buttonId, optionText) => {
         const guess = {
-            [pieSelect]: buttonId
+            [pieSelect]: optionText
         };
         onGuess(guess)
         switch (buttonId) {
@@ -43,9 +43,9 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess }) => {
             return (
                 <button
                     onClick={event => {
-                        addSelectionHandler(0)
+                        addSelectionHandler(0, option1Text)
                     }}
-                > Eating a banana</button>
+                > {option1Text}</button>
             )
         }
     }
@@ -55,9 +55,9 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess }) => {
             return (
                 <button
                     onClick={event => {
-                        addSelectionHandler(1)
+                        addSelectionHandler(1, option2Text)
                     }}
-                >Flying from LA to New York</button>
+                >{option2Text}</button>
             )
         }
     }
@@ -66,9 +66,9 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess }) => {
         if (option3Selected === false) {
             return (
                 <button onClick={event => {
-                    addSelectionHandler(2)
+                    addSelectionHandler(2, option3Text)
                 }}>
-                    Having a dental X-ray</button>
+                    {option3Text}</button>
             )
         }
     }

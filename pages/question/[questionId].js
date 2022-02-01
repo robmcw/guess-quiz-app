@@ -5,6 +5,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Piechart from '../components/Piechart'
 import OptionsModal from '../components/OptionsModal'
+import Results from '../components/Results'
 import styles from '../../styles/Home.module.css'
 
 export async function getStaticPaths() {
@@ -72,6 +73,13 @@ export default function Question(props) {
     const [guess1, setGuess1] = useState(null)
     const [guess2, setGuess2] = useState(null)
     const [guess3, setGuess3] = useState(null)
+    const [showResults, setShowResults] = useState(false)
+
+    // If all guesses comeplete, 'show results' button shows in Piechart component
+    let guessesComplete = false
+    if (guess1 && guess2 && guess3) {
+        guessesComplete = true
+    }
 
     // Take guess option number and pass to guess state
     const setGuessHandler = (guess) => {
@@ -98,10 +106,6 @@ export default function Question(props) {
             </Head>
 
             <main className={styles.main}>
-                <h1 className={styles.subtitle}>
-                    Here are 3 {props.questions[0].title}. Click one to match it to a scenario.
-                </h1>
-
                 <Piechart
                     onClick={() =>
                         setShowModal(true)
@@ -109,6 +113,8 @@ export default function Question(props) {
                     setSelectPie={setSelectPie}
 
                     //To do: make into object
+                    questionId={questionId}
+                    questionTitle={props.questions[0].title}
                     option1Text={props.questions[0].option1Text}
                     option1Amount={props.questions[0].option1Amount}
                     option1Index={props.questions[0].option1Index}
@@ -119,27 +125,36 @@ export default function Question(props) {
                     option3Amount={props.questions[0].option3Amount}
                     option3Index={props.questions[0].option3Index}
                     unit={props.questions[0].unit}
+                    guessesComplete={guessesComplete}
+                    setShowResults={setShowResults}
+                    showResults={showResults}
                 />
+
 
                 <OptionsModal
                     onClose={() => setShowModal(false)
                     }
                     show={showModal}
                     pieSelect={selectPie}
-                    onGuess={setGuessHandler}>
+                    onGuess={setGuessHandler}
+                    option1Text={props.questions[0].option1Text}
+                    option2Text={props.questions[0].option2Text}
+                    option3Text={props.questions[0].option3Text}
+                >
                 </OptionsModal>
 
-                <Link href={`/result/${questionId}`} passHref>
-                    <button
-                        className={styles.button}>
-                        Show result
-                    </button>
-                </Link>
+                <Results
+                    show={showResults}
+                    guess1={guess1}
+                    guess2={guess2}
+                    guess3={guess3}
+                />
+
 
             </main>
 
             <footer className={styles.footer}>
-                Powered by Robo
+                <Link href={`https://www.buymeacoffee.com/robmcw`} passHref>Like the app? Buy me a coffee ☕️ </Link>
             </footer>
         </div>
     )

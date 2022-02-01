@@ -42,7 +42,7 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        Powered by Robo
+        Like the app?  <Link href={`https://www.buymeacoffee.com/robmcw`} passHref>Buy me a coffee ☕️ </Link>
       </footer>
     </div >
   )
