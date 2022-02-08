@@ -1,9 +1,19 @@
 
 import { useState } from 'react';
 import { Pie } from 'react-chartjs-2'
-import Link from 'next/link'
+import styles from '../../styles/Piechart.module.css'
 
-const Piechart = ({ showResults, setShowResults, guessesComplete, questionId, questionTitle, onClick, setSelectPie, option1Text, option1Amount, option1Index, option2Text, option2Amount, option2Index, option3Text, option3Amount, option3Index, unit }) => {
+const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick, setSelectPie }) => {
+
+    const questionTitle = data.title
+    const option1Amount = data.option1Amount
+    const option1Index = data.option1Index
+    const option2Amount = data.option2Amount
+    const option2Index = data.option2Index
+    const option3Amount = data.option3Amount
+    const option3Index = data.option3Index
+    const unit = data.unit
+
 
     // Pie select states used to set colour of segment (blue or grey)
     const [pie1Selected, setPie1Selected] = useState(false);
@@ -61,76 +71,87 @@ const Piechart = ({ showResults, setShowResults, guessesComplete, questionId, qu
         }
     }
 
-    console.log("Show resutls " + showResults)
-
     // If all pie segments are selected, show Results button, else show options
     if (guessesComplete && !showResults) {
         return (
-            <button
-                onClick={event => {
-                    setShowResults(true)
-                }}>
-                Show results </button>
+            <div>
+                <h1> Great! Guesses complete. </h1>
+                <button
+                    onClick={event => {
+                        setShowResults(true)
+                    }}>
+                    Show results </button>
+            </div>
         )
     } else if (!showResults) {
         return (
             <div>
-                <h1>  Here are 3 {questionTitle} . Click one to match it to a scenario.</h1>
-                {<Pie
-                    data={{
-                        labels: [option1Amount + unit, option2Amount + unit, option3Amount + unit],
-                        datasets: [
-                            {
-                                label: '# of votes',
-                                data: [option1Amount, option2Amount, option3Amount
-                                ],
-                                backgroundColor: [
-                                    optionColor('option1', pie1Selected),
-                                    optionColor('option2', pie2Selected),
-                                    optionColor('option3', pie3Selected),
-                                ],
-                                borderWidth: 5,
-                                borderColor: '#ffffff',
-                            }
-                        ]
-                    }}
-                    height={400}
-                    width={600}
-                    options={{
-                        onClick(evt) {
-                            const points = this.getElementAtEvent(evt, 'nearest', { intersect: true }, true);
-                            // Check which segment has been selected using index and pass to click handler. 
-                            if (points[0]) {
-                                switch (points[0]._index) {
-                                    case option1Index:
-                                        clickHandler(0, option1Amount);
-                                        break;
-                                    case option2Index:
-                                        clickHandler(1, option2Amount);
-                                        break;
-                                    case option3Index:
-                                        clickHandler(2, option3Amount);
-                                        break;
+
+                <div className={styles.piechart}>
+                    {<Pie
+                        data={{
+                            labels: [option1Amount + unit, option2Amount + unit, option3Amount + unit],
+                            datasets: [
+                                {
+                                    label: '# of votes',
+                                    data: [option1Amount, option2Amount, option3Amount
+                                    ],
+                                    backgroundColor: [
+                                        optionColor('option1', pie1Selected),
+                                        optionColor('option2', pie2Selected),
+                                        optionColor('option3', pie3Selected),
+                                    ],
+                                    borderWidth: 5,
+                                    borderColor: '#ffffff',
+                                }
+                            ]
+                        }}
+                        height={400}
+                        width={600}
+                        options={{
+                            onClick(evt) {
+                                const points = this.getElementAtEvent(evt, 'nearest', { intersect: true }, true);
+                                // Check which segment has been selected using index and pass to click handler. 
+                                if (points[0]) {
+                                    switch (points[0]._index) {
+                                        case option1Index:
+                                            clickHandler(0, option1Amount);
+                                            break;
+                                        case option2Index:
+                                            clickHandler(1, option2Amount);
+                                            break;
+                                        case option3Index:
+                                            clickHandler(2, option3Amount);
+                                            break;
+                                    }
+                                }
+                            },
+                            maintainAspectRatio: false,
+                            tooltips: {
+                                enabled: false
+                            },
+                            legend: {
+                                display: true
+                            },
+                            hover: {
+                                // { mode: null },
+                                onHover: function (e) {
+                                    var point = this.getElementAtEvent(e);
+                                    if (point.length) e.target.style.cursor = 'pointer';
+                                    else e.target.style.cursor = 'default';
                                 }
                             }
-                        },
-                        maintainAspectRatio: false,
-                        tooltips: {
-                            enabled: false
-                        },
-                        legend: {
-                            display: true
-                        },
-                        hover: { mode: null },
 
-                        // TO DO – enable hover but only on segments that have not been selected. 
+                            // TO DO – enable hover but only on segments that have not been selected. 
 
-                        // onHover: (event, chartElement) => {
-                        //     event.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
-                        // }
+                            // onHover: (event, chartElement) => {
+                            //     event.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+                            // }
 
-                    }}
-                />}
+                        }
+                        }
+                    />}
+                </div>
             </div>
         )
     } else {

@@ -82,7 +82,6 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
                     <div className={styles.modal} >
                         <div className={styles.modalHeader} >
                             <div className={styles.modalButtonGroup}>
-                                <div className={styles.modalButtonGroup}></div>
                                 {option1()}
                                 {option2()}
                                 {option3()}
