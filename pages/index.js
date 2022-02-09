@@ -13,9 +13,9 @@ export default function Home() {
         Suprising Scales
       </h1>
 
-      <h3>
+      <p>
         Do you know your scales from your fails?
-      </h3>
+      </p>
 
       <p>
         Play through these 10 questions and match up the options to the size of the bar. The answers might suprise you!

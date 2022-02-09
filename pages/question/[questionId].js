@@ -1,5 +1,4 @@
 import { MongoClient } from 'mongodb'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Piechart from '../components/Piechart'
@@ -107,7 +106,7 @@ export default function Question(props) {
     }
 
     return (
-        <main>
+        <div className="flexContainer">
             {questionTitle}
             <Piechart
                 onClick={() =>
@@ -139,6 +138,6 @@ export default function Question(props) {
                 guess={guess}
                 data={props.questions[0]}
             />
-        </main>
+        </div>
     )
 }

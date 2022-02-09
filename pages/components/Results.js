@@ -12,9 +12,14 @@ const Results = ({ data, show, guess, answer }) => {
             <div className={styles.container}>
 
                 <main>
+
                     <h1>
-                        Correct!
+                        You nailed it! 😎
                     </h1>
+
+                    <p>{data.option1Text}: {data.option1Amount} {data.unit} </p>
+                    <p>{data.option2Text}: {data.option2Amount} {data.unit}  </p>
+                    <p>{data.option3Text}: {data.option3Amount} {data.unit}  </p>
 
                     {/* <p>
                         Wilst bananas are pretty radioactive when compared to other fruit and veg, just taking a flgiht from NY to LA exposes you to 1000% times more. At high altitude the air gets thinner and thinner air thus means fewer molecules to deflect incoming cosmic rays – radiation from outer space.
@@ -23,8 +28,6 @@ const Results = ({ data, show, guess, answer }) => {
                     {/* To do: generate next question numner (n+1) to generate next question */}
 
                     <button> Next question </button>
-
-                    <p>Piechart here</p>
 
                 </main>
 
@@ -37,18 +40,21 @@ const Results = ({ data, show, guess, answer }) => {
             <div>
 
                 <main>
+
                     <h1>
-                        Incorrect!
+                        Not quite! 😑
                     </h1>
 
-                    <p>
+
+
+                    {/* <p>
                         Wilst bananas are pretty radioactive when compared to other fruit and veg, just taking a flgiht from NY to LA exposes you to 1000% times more. At high altitude the air gets thinner and thinner air thus means fewer molecules to deflect incoming cosmic rays – radiation from outer space.
-                    </p>
-                    <ul>
-                        <li>{data.option1Text}: {data.option1Amount} {data.unit} </li>
-                        <li>{data.option2Text}: {data.option2Amount} {data.unit}  </li>
-                        <li>{data.option3Text}: {data.option3Amount} {data.unit}  </li>
-                    </ul>
+                    </p> */}
+
+                    <p>{data.option1Text}: <b> {data.option1Amount} {data.unit} </b> </p>
+                    <p>{data.option2Text}: <b> {data.option2Amount} {data.unit} </b>  </p>
+                    <p>{data.option3Text}: <b> {data.option3Amount} {data.unit} </b>  </p>
+
 
                     {/* <p >
                 Wilst bananas are pretty radioactive when compared to other fruit and veg, just taking a flgiht from NY to LA exposes you to 1000% times more. At high altitude the air gets thinner and thinner air thus means fewer molecules to deflect incoming cosmic rays – radiation from outer space.

@@ -5,7 +5,6 @@ import styles from '../../styles/Piechart.module.css'
 
 const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick, setSelectPie }) => {
 
-    const questionTitle = data.title
     const option1Amount = data.option1Amount
     const option1Index = data.option1Index
     const option2Amount = data.option2Amount
@@ -74,13 +73,13 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
     // If all pie segments are selected, show Results button, else show options
     if (guessesComplete && !showResults) {
         return (
-            <div>
+            <div className={"flexContainer"}>
                 <h1> Great! Guesses complete. </h1>
                 <button
                     onClick={event => {
                         setShowResults(true)
-                    }}>
-                    Show results </button>
+                    }}> Show results
+                </button>
             </div>
         )
     } else if (!showResults) {
@@ -106,8 +105,8 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
                                 }
                             ]
                         }}
-                        height={400}
-                        width={600}
+                        height={350}
+                        width={350}
                         options={{
                             onClick(evt) {
                                 const points = this.getElementAtEvent(evt, 'nearest', { intersect: true }, true);

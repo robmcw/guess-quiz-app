@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import '../styles/utilities.css'
 import Layout from '../pages/components/Layout'
 import Head from 'next/head'
 
