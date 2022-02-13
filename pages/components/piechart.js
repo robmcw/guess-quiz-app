@@ -1,9 +1,9 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2'
 import styles from '../../styles/Piechart.module.css'
 
-const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick, setSelectPie }) => {
+const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick, }) => {
 
     const option1Amount = data.option1Amount
     const option1Index = data.option1Index
@@ -13,6 +13,12 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
     const option3Index = data.option3Index
     const unit = data.unit
 
+    // Reset states when new question rendered
+    useEffect(() => {
+        setPie1Selected(false),
+            setPie2Selected(false),
+            setPie3Selected(false)
+    }, [])
 
     // Pie select states used to set colour of segment (blue or grey)
     const [pie1Selected, setPie1Selected] = useState(false);
@@ -22,7 +28,6 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
 
     // If pie segment is clicked, set segment as selected and open modal
     const clickHandler = (index, option) => {
-        setSelectPie(option)
         switch (index) {
             case 0:
                 if (!pie1Selected) {
@@ -74,7 +79,7 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
     if (guessesComplete && !showResults) {
         return (
             <div className={"flexContainer"}>
-                <h1> Great! Guesses complete. </h1>
+                <h1> Great! Guesses complete ✅ </h1>
                 <button
                     onClick={event => {
                         setShowResults(true)
@@ -89,7 +94,7 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
                 <div className={styles.piechart}>
                     {<Pie
                         data={{
-                            labels: [option1Amount + unit, option2Amount + unit, option3Amount + unit],
+                            labels: [option1Amount + " " + unit, option2Amount + " " + unit, option3Amount + " " + unit],
                             datasets: [
                                 {
                                     label: '# of votes',

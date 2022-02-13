@@ -6,17 +6,20 @@ import styles from "../../styles/OptionsModal.module.css"
 
 // On click, communicate selection and match to amount selection to STATE in Question component
 
-const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2Text, option3Text }) => {
+const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2Text, option3Text, questionTitle }) => {
+
+    useEffect(() => {
+        setIsBrowser(true);
+        setOption1Selected(false),
+            setOption2Selected(false),
+            setOption3Selected(false)
+    }, []);
 
     // Portal needed for modal. Here we put this in state to be used later.
     const [isBrowser, setIsBrowser] = useState(false);
     const [option1Selected, setOption1Selected] = useState(false);
     const [option2Selected, setOption2Selected] = useState(false);
     const [option3Selected, setOption3Selected] = useState(false);
-
-    useEffect(() => {
-        setIsBrowser(true);
-    }, []);
 
     // Close modal when option button is clicked
     const addSelectionHandler = (buttonId, optionText) => {
@@ -81,7 +84,9 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
                 <div className={styles.modalOverlay} >
                     <div className={styles.modal} >
                         <div className={styles.modalHeader} >
+
                             <div className={styles.modalButtonGroup}>
+                                {questionTitle}
                                 {option1()}
                                 {option2()}
                                 {option3()}

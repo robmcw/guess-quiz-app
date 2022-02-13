@@ -1,29 +1,55 @@
-import Head from 'next/head'
 import Link from 'next/link'
-// import utilityStyles from '../styles/utilities'
-import styles from '../styles/Home.module.css'
+import { Pie } from 'react-chartjs-2'
 
 export default function Home() {
 
-  const questionId = "1"
+  const questionId = "0"
 
   return (
-    <main>
+    <div className={'flexContainer'}>
       <h1>
-        Suprising Scales
+        Piece of Pie
       </h1>
+      <div className={"flexContainer"}>
+        {<Pie
+          data={{
+            datasets: [
+              {
+                data: [20, 60, 20
+                ],
+                backgroundColor: [
+                  '#0074C2', '#0099FF', '#71C3FB'
+                ],
+                borderWidth: 5,
+                borderColor: '#ffffff',
+              }
+            ]
+          }}
+          height={250}
+          width={250}
+          options={{
 
+            maintainAspectRatio: false,
+            tooltips: {
+              enabled: false
+            },
+            legend: {
+              display: false
+            },
+            hover: {
+              mode: null,
+            }
+          }
+          }
+        />}
+
+      </div>
       <p>
-        Do you know your scales from your fails?
+        10 scenarios. 10 piecharts. Can you match the numbers correctly?
       </p>
-
-      <p>
-        Play through these 10 questions and match up the options to the size of the bar. The answers might suprise you!
-      </p>
-
       <Link href={`/question/${questionId}`} passHref>
         <button> Start </button>
       </Link>
-    </main>
+    </div>
   )
 }

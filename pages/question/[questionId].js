@@ -1,19 +1,28 @@
 import { MongoClient } from 'mongodb'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Piechart from '../components/Piechart'
 import OptionsModal from '../components/OptionsModal'
 import Results from '../components/Results'
 
 export async function getStaticPaths() {
+
+    require('dotenv').config();
+    const client = await MongoClient.connect(process.env.MONGODBCREDENTIALS);
+    const db = client.db();
+    const questionsCollection = db.collection('questions');
+    const questions = await questionsCollection.find().toArray();
+    client.close()
+
+    console.log(`QUESTION` + JSON.stringify(questions[1]))
+
+
     return {
         // To do: Ids should be fetched dynamically
         fallback: true,
         paths: [
             {
-                params: {
-                    questionId: '1'
-                }
+                params: { questionId: '0' },
             }
         ]
     }
@@ -49,16 +58,31 @@ export async function getStaticProps() {
                 option3Index: 2,
                 id: questions._id.toString()
             }))
-        }
+        },
     }
 }
 
 export default function Question(props) {
 
+
+
     const router = useRouter()
     const {
         query: { questionId },
     } = router
+
+    console.log("Open 1 text")
+    console.log(props.questions[questionId].option1Text)
+    const dynamicRoute = useRouter().asPath
+
+    useEffect(() => {
+        setShowModal(false),
+            setSelectPie(),
+            setGuess1(null),
+            setGuess2(null),
+            setGuess3(null),
+            setShowResults(false)
+    }, [dynamicRoute])
 
     const [showModal, setShowModal] = useState(false);
 
@@ -94,16 +118,17 @@ export default function Question(props) {
     }
 
     const answer = {
-        [props.questions[0].option1Amount]: props.questions[0].option1Text,
-        [props.questions[0].option2Amount]: props.questions[0].option2Text,
-        [props.questions[0].option3Amount]: props.questions[0].option3Text
+        [props.questions[questionId].option1Amount]: props.questions[questionId].option1Text,
+        [props.questions[questionId].option2Amount]: props.questions[questionId].option2Text,
+        [props.questions[questionId].option3Amount]: props.questions[questionId].option3Text
     }
 
     let questionTitle = null
     if (!guessesComplete) {
         questionTitle =
-            <h1>Here are 3 {props.questions[0].title}. Click one to match it to a scenario.</h1>
+            <h1>Here are 3 {props.questions[questionId].title}. Click one to match it to a scenario.</h1>
     }
+
 
     return (
         <div className="flexContainer">
@@ -113,8 +138,7 @@ export default function Question(props) {
                     setShowModal(true)
                 }
                 setSelectPie={setSelectPie}
-                data={props.questions[0]}
-                questionId={questionId}
+                data={props.questions[questionId]}
                 guessesComplete={guessesComplete}
                 setShowResults={setShowResults}
                 showResults={showResults}
@@ -123,20 +147,22 @@ export default function Question(props) {
             <OptionsModal
                 onClose={() => setShowModal(false)
                 }
+                questionTitle={questionTitle}
                 show={showModal}
                 pieSelect={selectPie}
                 onGuess={setGuessHandler}
-                option1Text={props.questions[0].option1Text}
-                option2Text={props.questions[0].option2Text}
-                option3Text={props.questions[0].option3Text}
+                option1Text={props.questions[questionId].option1Text}
+                option2Text={props.questions[questionId].option2Text}
+                option3Text={props.questions[questionId].option3Text}
             >
             </OptionsModal>
 
             <Results
+                questionId={questionId}
                 show={showResults}
                 answer={answer}
                 guess={guess}
-                data={props.questions[0]}
+                data={props.questions[questionId]}
             />
         </div>
     )
