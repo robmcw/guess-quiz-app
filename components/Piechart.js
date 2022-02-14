@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Pie } from 'react-chartjs-2'
-import styles from '../../styles/Piechart.module.css'
+import styles from '../styles/Piechart.module.css'
 
 const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick, }) => {
 

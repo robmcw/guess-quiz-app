@@ -1,9 +1,10 @@
 import { MongoClient } from 'mongodb'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import Piechart from '../components/Piechart.js'
-import OptionsModal from '../components/OptionsModal.js'
-import Results from '../components/Results.js'
+import Piechart from '../../components/Piechart.js'
+import OptionsModal from '../../components/OptionsModal.js'
+import Results from '../../components/Results.js'
+import { route } from 'next/dist/server/router'
 
 export async function getStaticPaths() {
 
@@ -13,9 +14,6 @@ export async function getStaticPaths() {
     const questionsCollection = db.collection('questions');
     const questions = await questionsCollection.find().toArray();
     client.close()
-
-    console.log(`QUESTION` + JSON.stringify(questions[1]))
-
 
     return {
         // To do: Ids should be fetched dynamically
@@ -28,9 +26,10 @@ export async function getStaticPaths() {
     }
 }
 
-export async function getStaticProps() {
+export const getStaticProps = async () => {
 
     // Call DB and bring back Question data
+
     require('dotenv').config();
     const client = await MongoClient.connect(process.env.MONGODBCREDENTIALS);
     const db = client.db();
@@ -62,17 +61,17 @@ export async function getStaticProps() {
     }
 }
 
-export default function Question(props) {
 
+
+const Question = (props) => {
 
 
     const router = useRouter()
+
     const {
         query: { questionId },
     } = router
 
-    console.log("Open 1 text")
-    console.log(props.questions[questionId].option1Text)
     const dynamicRoute = useRouter().asPath
 
     useEffect(() => {
@@ -115,6 +114,10 @@ export default function Question(props) {
         ...guess1,
         ...guess2,
         ...guess3
+    }
+
+    if (router.isFallback) {
+        return <h1>Loading...</h1>
     }
 
     const answer = {
@@ -167,3 +170,6 @@ export default function Question(props) {
         </div>
     )
 }
+
+
+export default Question;
