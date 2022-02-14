@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Pie } from 'react-chartjs-2'
 import styles from '../../styles/Piechart.module.css'
 
@@ -14,11 +15,12 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
     const unit = data.unit
 
     // Reset states when new question rendered
+    const dynamicRoute = useRouter().asPath
     useEffect(() => {
         setPie1Selected(false),
             setPie2Selected(false),
             setPie3Selected(false)
-    }, [])
+    }, [dynamicRoute])
 
     // Pie select states used to set colour of segment (blue or grey)
     const [pie1Selected, setPie1Selected] = useState(false);
@@ -79,7 +81,7 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
     if (guessesComplete && !showResults) {
         return (
             <div className={"flexContainer"}>
-                <h1> Great! Guesses complete ✅ </h1>
+                <h1> Gusses complete </h1>
                 <button
                     onClick={event => {
                         setShowResults(true)

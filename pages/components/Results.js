@@ -32,12 +32,12 @@ const Results = ({ questionId, data, show, guess, answer }) => {
         return (
             <div className={"flexContainer"}>
                 <h1>
-                    Not quite! 😑
+                    Wrong! 😑
                 </h1>
 
-                <p>{data.option1Text}: <b> {data.option1Amount} {data.unit} </b> </p>
-                <p>{data.option2Text}: <b> {data.option2Amount} {data.unit} </b>  </p>
-                <p>{data.option3Text}: <b> {data.option3Amount} {data.unit} </b>  </p>
+                <p>{data.option1Text}: <b> {data.option1Amount} {data.unit} </b></p>
+                <p>{data.option2Text}: <b> {data.option2Amount} {data.unit} </b></p>
+                <p>{data.option3Text}: <b> {data.option3Amount} {data.unit} </b> </p>
 
                 <Link href={`/question/${questionIdNumber + 1}`} passHref>
                     <button> Next question </button>
