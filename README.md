@@ -4,6 +4,8 @@ A quiz app, created with Next. Play it here: https://guess-quiz-app-fuslz7279-ro
 
 The concept was born out of a quiz that I took that involved matching quantities of various things (radioactive dose on exposure, personal wealth, population), to scenarios. It felt like something that would fit nicely into a Next.js app and test my skills. 
 
+![Screenshot 2022-02-14 at 18 57 29](https://user-images.githubusercontent.com/12657462/153919998-842a9ddf-627d-4d09-aa94-68a7ba516ac4.png)
+
 
 ## Getting Started
 
