@@ -1,9 +1,9 @@
 import { MongoClient } from 'mongodb'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import Piechart from '../components/Piechart'
-import OptionsModal from '../components/OptionsModal'
-import Results from '../components/Results'
+import Piechart from '../components/Piechart.js'
+import OptionsModal from '../components/OptionsModal.js'
+import Results from '../components/Results.js'
 
 export async function getStaticPaths() {
 

@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import styles from '../../styles/Home.module.css'
 
 //TO DO – write function to see if guess matches answer
 
