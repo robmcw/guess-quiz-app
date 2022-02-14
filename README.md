@@ -1,6 +1,8 @@
 ## Guess quiz app
 
-WIP. A prototype for a quiz app, created with Next. The concept was born out of a quiz that I took that involved matching quantities of various things (radioactive dose on exposure, personal wealth, population), to scenarios. For example, match the populations 9,000,000, 15,000,00 and 3,000,000 to the cities Lagos, Buenos Aires and New York. It felt like something that would fit nicely into a Next.js app. 
+A quiz app, created with Next. Play it here: https://guess-quiz-app-fuslz7279-robmcw.vercel.app/
+
+The concept was born out of a quiz that I took that involved matching quantities of various things (radioactive dose on exposure, personal wealth, population), to scenarios. It felt like something that would fit nicely into a Next.js app and test my skills. 
 
 
 ## Getting Started
@@ -29,9 +31,3 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
