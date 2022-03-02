@@ -1,13 +1,26 @@
 import Link from 'next/link'
 
-//TO DO – write function to see if guess matches answer
-
-
-const Results = ({ questionId, data, show, guess, answer }) => {
+const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) => {
 
     const correctAnswer = JSON.stringify(answer) == JSON.stringify(guess);
     const questionIdNumber = parseInt(questionId)
 
+    let button = null
+
+    // If Max number of questions reached (numberOfQuestions), show score page
+    if (questionIdNumber === numberOfQuestions - 1) {
+        button =
+            <Link href={`/score`} passHref>
+                <button> Show score </button>
+            </Link>
+    } else {
+        button =
+            <Link href={`/question/${questionIdNumber + 1}`} passHref>
+                <button> Next question </button>
+            </Link>
+    }
+
+    // If correct, show CORRECT page content
     if (show && correctAnswer) {
         return (
             <div className={"flexContainer"}>
@@ -20,9 +33,7 @@ const Results = ({ questionId, data, show, guess, answer }) => {
                 <p>{data.option2Text}: {data.option2Amount} {data.unit}  </p>
                 <p>{data.option3Text}: {data.option3Amount} {data.unit}  </p>
 
-                <Link href={`/question/${questionIdNumber + 1}`} passHref>
-                    <button> Next question </button>
-                </Link>
+                {button}
             </div >
         )
     }
@@ -38,13 +49,10 @@ const Results = ({ questionId, data, show, guess, answer }) => {
                 <p>{data.option2Text}: <b> {data.option2Amount} {data.unit} </b></p>
                 <p>{data.option3Text}: <b> {data.option3Amount} {data.unit} </b> </p>
 
-                <Link href={`/question/${questionIdNumber + 1}`} passHref>
-                    <button> Next question </button>
-                </Link>
+                {button}
+
             </div>
         )
-
-        //TO D0 = If Max number of questions reached, show SCORE component
 
     } else {
         return (

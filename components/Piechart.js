@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { Pie } from 'react-chartjs-2'
 import styles from '../styles/Piechart.module.css'
 
-const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick, }) => {
+const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick, setSelectPie }) => {
 
     const option1Amount = data.option1Amount
     const option1Index = data.option1Index
@@ -34,18 +34,21 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
             case 0:
                 if (!pie1Selected) {
                     setPie1Selected(true)
+                    setSelectPie(option)
                     onClick()
                 }
                 break;
             case 1:
                 if (!pie2Selected) {
                     setPie2Selected(true)
+                    setSelectPie(option)
                     onClick()
                 }
                 break;
             case 2:
                 if (!pie3Selected) {
                     setPie3Selected(true)
+                    setSelectPie(option)
                     onClick()
                 }
                 break;

@@ -16,7 +16,6 @@ export async function getStaticPaths() {
     client.close()
 
     return {
-        // To do: Ids should be fetched dynamically
         fallback: true,
         paths: [
             {
@@ -126,6 +125,10 @@ const Question = (props) => {
         [props.questions[questionId].option3Amount]: props.questions[questionId].option3Text
     }
 
+    const numberOfQuestions = Object.keys(props.questions).length
+
+    console.log(`numberOfQuestions ` + numberOfQuestions)
+
     let questionTitle = null
     if (!guessesComplete) {
         questionTitle =
@@ -150,7 +153,7 @@ const Question = (props) => {
             <OptionsModal
                 onClose={() => setShowModal(false)
                 }
-                questionTitle={questionTitle}
+                unit={props.questions[questionId].unit}
                 show={showModal}
                 pieSelect={selectPie}
                 onGuess={setGuessHandler}
@@ -162,6 +165,7 @@ const Question = (props) => {
 
             <Results
                 questionId={questionId}
+                numberOfQuestions={numberOfQuestions}
                 show={showResults}
                 answer={answer}
                 guess={guess}

@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 
 // On click, communicate selection and match to amount selection to STATE in Question component
 
-const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2Text, option3Text, questionTitle }) => {
+const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2Text, option3Text, unit }) => {
 
     const dynamicRoute = useRouter().asPath
     useEffect(() => {
@@ -28,6 +28,7 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
         const guess = {
             [pieSelect]: optionText
         };
+
         onGuess(guess)
         switch (buttonId) {
             case 0:
@@ -78,7 +79,6 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
         }
     }
 
-    // TODO: if option has been selected, do not show
     // If show prop = true, show modal. Else null. 
     const modalContent = () => {
         if (show) {
@@ -88,7 +88,7 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
                         <div className={styles.modalHeader} >
 
                             <div className={styles.modalButtonGroup}>
-                                {questionTitle}
+                                <h1> Do you think {pieSelect} {unit} relates to:</h1>
                                 {option1()}
                                 {option2()}
                                 {option3()}
