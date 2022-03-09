@@ -45,7 +45,7 @@ export default function Home() {
 
       </div>
       <p>
-        10 scenarios. 10 piecharts. Can you match the numbers correctly?
+        5 scenarios. 5 piecharts. Can you match the numbers correctly?
       </p>
       <Link href={`/question/${questionId}`} passHref>
         <button> Start </button>

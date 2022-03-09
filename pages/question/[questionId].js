@@ -5,6 +5,7 @@ import Piechart from '../../components/Piechart.js'
 import OptionsModal from '../../components/OptionsModal.js'
 import Results from '../../components/Results.js'
 import { route } from 'next/dist/server/router'
+import ScoreContext from '../../store/score-context'
 
 export async function getStaticPaths() {
 
@@ -93,6 +94,8 @@ const Question = (props) => {
     const [guess3, setGuess3] = useState(null)
     const [showResults, setShowResults] = useState(false)
 
+    const numberOfQuestions = Object.keys(props.questions).length
+
     // If all guesses comeplete, 'show results' button shows in Piechart component
     let guessesComplete = false
     if (guess1 && guess2 && guess3) {
@@ -115,19 +118,11 @@ const Question = (props) => {
         ...guess3
     }
 
-    if (router.isFallback) {
-        return <h1>Loading...</h1>
-    }
-
     const answer = {
         [props.questions[questionId].option1Amount]: props.questions[questionId].option1Text,
         [props.questions[questionId].option2Amount]: props.questions[questionId].option2Text,
         [props.questions[questionId].option3Amount]: props.questions[questionId].option3Text
     }
-
-    const numberOfQuestions = Object.keys(props.questions).length
-
-    console.log(`numberOfQuestions ` + numberOfQuestions)
 
     let questionTitle = null
     if (!guessesComplete) {
@@ -135,6 +130,10 @@ const Question = (props) => {
             <h1>Here are 3 {props.questions[questionId].title}. Click one to match it to a scenario.</h1>
     }
 
+    const scoreHandler = () => {
+        console.log("Updating score")
+
+    }
 
     return (
         <div className="flexContainer">

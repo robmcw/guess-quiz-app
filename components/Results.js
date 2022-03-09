@@ -1,11 +1,27 @@
 import Link from 'next/link'
+import React, { useContext, useEffect } from 'react'
+import ScoreContext from '../store/score-context'
 
 const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) => {
 
-    const correctAnswer = JSON.stringify(answer) == JSON.stringify(guess);
+    console.log("Answer = " + JSON.stringify(answer))
+    console.log("guess = " + JSON.stringify(guess))
+
     const questionIdNumber = parseInt(questionId)
+    const correctAnswer = JSON.stringify(answer) == JSON.stringify(guess);
 
     let button = null
+
+    const ctx = useContext(ScoreContext);
+
+    useEffect(() => {
+        if (correctAnswer) {
+            console.log("Answer correct" + ctx.score)
+            ctx.onCorrectAnswer(++ctx.score)
+        }
+    }, [correctAnswer])
+
+
 
     // If Max number of questions reached (numberOfQuestions), show score page
     if (questionIdNumber === numberOfQuestions - 1) {
@@ -16,12 +32,14 @@ const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) =
     } else {
         button =
             <Link href={`/question/${questionIdNumber + 1}`} passHref>
-                <button> Next question </button>
+                <button
+                > Next question </button>
             </Link>
     }
 
     // If correct, show CORRECT page content
     if (show && correctAnswer) {
+
         return (
             <div className={"flexContainer"}>
 

@@ -1,19 +1,61 @@
 import '../styles/globals.css'
 import '../styles/utilities.css'
 import Layout from '../components/Layout'
+import Loader from '../components/Loader'
 import Head from 'next/head'
+import { useEffect, useState } from 'react'
+import Router from "next/router";
+import ScoreContext from '../store/score-context'
 
 function MyApp({ Component, pageProps }) {
+  const [loading, setLoading] = useState(false);
+  const [score, setScore] = useState(0)
+  const [value, setValue] = useState()
+
+  useEffect(() => {
+
+    const start = () => {
+      setLoading(true);
+    };
+    const end = () => {
+      setLoading(false);
+    };
+
+    Router.events.on("routeChangeStart", start);
+    Router.events.on("routeChangeComplete", end);
+    Router.events.on("routeChangeError", end);
+    return () => {
+      Router.events.off("routeChangeStart", start);
+      Router.events.off("routeChangeComplete", end);
+      Router.events.off("routeChangeError", end);
+    };
+  }, []);
+
+  const scoreHandler = (newScore) => {
+    console.log("Updating score to" + newScore)
+    setScore(newScore)
+  }
+
   return (
     <>
-      <Head>
-        <title>Suprising Scales</title>
-        <meta name="description" content="Know your scales from your fails" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <ScoreContext.Provider value={{
+        score: score,
+        value: value,
+        onCorrectAnswer: scoreHandler
+      }}>
+        <Head>
+          <title>Suprising Scales</title>
+          <meta name="description" content="Know your scales from your fails" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        {loading ? (
+          <Loader />
+        ) : (
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        )}
+      </ScoreContext.Provider>
     </>
   )
 }

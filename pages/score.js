@@ -1,15 +1,19 @@
+import React, { useContext } from 'react'
+import ScoreContext from "../store/score-context";
+
 const Score = () => {
+
+    const ctx = useContext(ScoreContext);
 
     return (
         <div className={"flexContainer"}>
             <h1>
                 Your Score
             </h1>
-            <p> Youve finished the quiz! You got __ out of 10 right.</p>
+            <p> You&apos;ve finished the quiz! </p>
 
-            <p> Share with your firends</p>
+            <p> You got {ctx.score} out of 5 questions right.</p>
 
-            <p> Buy me a coffee</p>
         </div>
     )
 }
