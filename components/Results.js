@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React, { useContext, useEffect } from 'react'
 import ScoreContext from '../store/score-context'
 
-const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) => {
+const Results = ({ questionId, data, show, guess, answer }) => {
 
     const questionIdNumber = parseInt(questionId)
     const correctAnswer = JSON.stringify(answer) == JSON.stringify(guess);
@@ -20,18 +20,18 @@ const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) =
 
 
     // If Max number of questions reached (numberOfQuestions), show score page
-    if (questionIdNumber === numberOfQuestions - 1) {
-        button =
-            <Link href={`/score`} passHref>
-                <button> Show score </button>
-            </Link>
-    } else {
-        button =
-            <Link href={`/question/${questionIdNumber + 1}`} passHref>
-                <button
-                > Next question </button>
-            </Link>
-    }
+    // if (questionIdNumber === numberOfQuestions - 1) {
+    //     button =
+    //         <Link href={`/score`} passHref>
+    //             <button> Show score </button>
+    //         </Link>
+    // } else {
+    button =
+        <Link href={`/question/${questionIdNumber + 1}`} passHref>
+            <button
+            > Next question </button>
+        </Link>
+
 
     // If correct, show CORRECT page content
     if (show && correctAnswer) {
