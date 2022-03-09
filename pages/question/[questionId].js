@@ -15,7 +15,7 @@ export async function getStaticPaths() {
     client.close()
 
     return {
-        fallback: false,
+        fallback: true,
         paths: [
             {
                 params: { questionId: '0' },
@@ -113,57 +113,65 @@ const Question = (props) => {
         ...guess3
     }
 
-    const answer = {
-        [props.questions[questionId].option1Amount]: props.questions[questionId].option1Text,
-        [props.questions[questionId].option2Amount]: props.questions[questionId].option2Text,
-        [props.questions[questionId].option3Amount]: props.questions[questionId].option3Text
+    // Dirty last minute hack for dynamic routing. To be removed. 
+    if (questionId < 5) {
+        const answer = {
+            [props.questions[questionId].option1Amount]: props.questions[questionId].option1Text,
+            [props.questions[questionId].option2Amount]: props.questions[questionId].option2Text,
+            [props.questions[questionId].option3Amount]: props.questions[questionId].option3Text
+        }
+
+        const numberOfQuestions = Object.keys(props.questions).length
+
+        let questionTitle = null
+        if (!guessesComplete) {
+            questionTitle =
+                <h1>Here are 3 {props.questions[questionId].title}. Click one to match it to a scenario.</h1>
+        }
+
+
+        return (
+            <div className="flexContainer">
+                {questionTitle}
+                <Piechart
+                    onClick={() =>
+                        setShowModal(true)
+                    }
+                    setSelectPie={setSelectPie}
+                    data={props.questions[questionId]}
+                    guessesComplete={guessesComplete}
+                    setShowResults={setShowResults}
+                    showResults={showResults}
+                />
+
+                <OptionsModal
+                    onClose={() => setShowModal(false)
+                    }
+                    unit={props.questions[questionId].unit}
+                    show={showModal}
+                    pieSelect={selectPie}
+                    onGuess={setGuessHandler}
+                    option1Text={props.questions[questionId].option1Text}
+                    option2Text={props.questions[questionId].option2Text}
+                    option3Text={props.questions[questionId].option3Text}
+                >
+                </OptionsModal>
+
+                <Results
+                    questionId={questionId}
+                    numberOfQuestions={numberOfQuestions}
+                    show={showResults}
+                    answer={answer}
+                    guess={guess}
+                    data={props.questions[questionId]}
+                />
+            </div>
+        )
+    } else {
+        return <>
+            <p>No question yet.</p>
+        </>
     }
-
-    const numberOfQuestions = Object.keys(props.questions).length
-
-    let questionTitle = null
-    if (!guessesComplete) {
-        questionTitle =
-            <h1>Here are 3 {props.questions[questionId].title}. Click one to match it to a scenario.</h1>
-    }
-
-    return (
-        <div className="flexContainer">
-            {questionTitle}
-            <Piechart
-                onClick={() =>
-                    setShowModal(true)
-                }
-                setSelectPie={setSelectPie}
-                data={props.questions[questionId]}
-                guessesComplete={guessesComplete}
-                setShowResults={setShowResults}
-                showResults={showResults}
-            />
-
-            <OptionsModal
-                onClose={() => setShowModal(false)
-                }
-                unit={props.questions[questionId].unit}
-                show={showModal}
-                pieSelect={selectPie}
-                onGuess={setGuessHandler}
-                option1Text={props.questions[questionId].option1Text}
-                option2Text={props.questions[questionId].option2Text}
-                option3Text={props.questions[questionId].option3Text}
-            >
-            </OptionsModal>
-
-            <Results
-                questionId={questionId}
-                numberOfQuestions={numberOfQuestions}
-                show={showResults}
-                answer={answer}
-                guess={guess}
-                data={props.questions[questionId]}
-            />
-        </div>
-    )
 }
 
 
