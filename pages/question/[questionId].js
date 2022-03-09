@@ -15,7 +15,7 @@ export async function getStaticPaths() {
     client.close()
 
     return {
-        fallback: true,
+        fallback: false,
         paths: [
             {
                 params: { questionId: '0' },
@@ -119,7 +119,7 @@ const Question = (props) => {
         [props.questions[questionId].option3Amount]: props.questions[questionId].option3Text
     }
 
-    // const numberOfQuestions = Object.keys(props.questions).length
+    const numberOfQuestions = Object.keys(props.questions).length
 
     let questionTitle = null
     if (!guessesComplete) {
@@ -156,7 +156,7 @@ const Question = (props) => {
 
             <Results
                 questionId={questionId}
-                // numberOfQuestions={numberOfQuestions}
+                numberOfQuestions={numberOfQuestions}
                 show={showResults}
                 answer={answer}
                 guess={guess}
@@ -165,6 +165,7 @@ const Question = (props) => {
         </div>
     )
 }
+
 
 
 export default Question;
