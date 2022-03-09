@@ -4,8 +4,6 @@ import { useState, useEffect } from 'react'
 import Piechart from '../../components/Piechart.js'
 import OptionsModal from '../../components/OptionsModal.js'
 import Results from '../../components/Results.js'
-import { route } from 'next/dist/server/router'
-import ScoreContext from '../../store/score-context'
 
 export async function getStaticPaths() {
 
@@ -63,8 +61,7 @@ export const getStaticProps = async () => {
 
 
 
-const Question = (props) => {
-
+const Question = async (props) => {
 
     const router = useRouter()
 
@@ -94,7 +91,7 @@ const Question = (props) => {
     const [guess3, setGuess3] = useState(null)
     const [showResults, setShowResults] = useState(false)
 
-    const numberOfQuestions = Object.keys(props.questions).length
+    const numberOfQuestions = Object.keys(await props.questions).length
 
     // If all guesses comeplete, 'show results' button shows in Piechart component
     let guessesComplete = false
@@ -128,11 +125,6 @@ const Question = (props) => {
     if (!guessesComplete) {
         questionTitle =
             <h1>Here are 3 {props.questions[questionId].title}. Click one to match it to a scenario.</h1>
-    }
-
-    const scoreHandler = () => {
-        console.log("Updating score")
-
     }
 
     return (

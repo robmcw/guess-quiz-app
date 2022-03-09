@@ -4,9 +4,6 @@ import ScoreContext from '../store/score-context'
 
 const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) => {
 
-    console.log("Answer = " + JSON.stringify(answer))
-    console.log("guess = " + JSON.stringify(guess))
-
     const questionIdNumber = parseInt(questionId)
     const correctAnswer = JSON.stringify(answer) == JSON.stringify(guess);
 
@@ -16,7 +13,6 @@ const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) =
 
     useEffect(() => {
         if (correctAnswer) {
-            console.log("Answer correct" + ctx.score)
             ctx.onCorrectAnswer(++ctx.score)
         }
     }, [correctAnswer])
