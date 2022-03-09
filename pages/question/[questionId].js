@@ -61,7 +61,7 @@ export const getStaticProps = async () => {
 
 
 
-const Question = async (props) => {
+const Question = (props) => {
 
     const router = useRouter()
 
@@ -91,8 +91,6 @@ const Question = async (props) => {
     const [guess3, setGuess3] = useState(null)
     const [showResults, setShowResults] = useState(false)
 
-    const numberOfQuestions = Object.keys(await props.questions).length
-
     // If all guesses comeplete, 'show results' button shows in Piechart component
     let guessesComplete = false
     if (guess1 && guess2 && guess3) {
@@ -120,6 +118,8 @@ const Question = async (props) => {
         [props.questions[questionId].option2Amount]: props.questions[questionId].option2Text,
         [props.questions[questionId].option3Amount]: props.questions[questionId].option3Text
     }
+
+    const numberOfQuestions = Object.keys(props.questions).length
 
     let questionTitle = null
     if (!guessesComplete) {
