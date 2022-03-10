@@ -1,6 +1,6 @@
 ## Guess quiz app
 
-A quiz app, created with Next. Play it here: https://guess-quiz-app-fuslz7279-robmcw.vercel.app/
+A quiz app, created with Next. Play it here: https://guess-quiz-app.vercel.app/
 
 The concept was born out of a quiz that I took that involved matching quantities of various things (radioactive dose on exposure, personal wealth, population), to scenarios. It felt like something that would fit nicely into a Next.js app and test my skills. 
 
