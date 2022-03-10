@@ -9,8 +9,8 @@ const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) =
 
     let button = null
 
+    // If answer correct, add +1 to ScoreContext 
     const ctx = useContext(ScoreContext);
-
     useEffect(() => {
         if (correctAnswer) {
             ctx.onCorrectAnswer(++ctx.score)

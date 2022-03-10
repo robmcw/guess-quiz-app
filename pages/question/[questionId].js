@@ -113,7 +113,7 @@ const Question = (props) => {
         ...guess3
     }
 
-    // Dirty last minute hack for dynamic routing. To be removed. 
+    // Dirty last minute hack for dynamic routing. To be removed when routing is refactored correctly. 
     if (questionId < 5) {
         const answer = {
             [props.questions[questionId].option1Amount]: props.questions[questionId].option1Text,
