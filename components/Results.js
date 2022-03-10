@@ -5,6 +5,8 @@ import ScoreContext from '../store/score-context'
 const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) => {
 
     const questionIdNumber = parseInt(questionId)
+
+    // To do: work out why this does not support decimal places
     const correctAnswer = JSON.stringify(answer) == JSON.stringify(guess);
 
     let button = null

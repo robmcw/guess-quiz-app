@@ -44,7 +44,7 @@ function MyApp({ Component, pageProps }) {
         onCorrectAnswer: scoreHandler
       }}>
         <Head>
-          <title>Pie of Pie</title>
+          <title>Piece of Pie</title>
           <meta name="description" content="5 scenarios. 5 piecharts. Can you match them?" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
