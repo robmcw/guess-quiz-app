@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   const scoreHandler = (newScore) => {
-    console.log("Updating score to" + newScore)
+    console.log("Updating score to " + newScore)
     setScore(newScore)
   }
 

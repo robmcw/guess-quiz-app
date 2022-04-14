@@ -6,8 +6,8 @@ const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) =
 
     const questionIdNumber = parseInt(questionId)
 
-    // To do: work out why this does not support decimal places
-    const correctAnswer = JSON.stringify(answer) == JSON.stringify(guess);
+    // This should now support decimal places
+    const correctAnswer = JSON.stringify(answer) === JSON.stringify(guess);
 
     let button = null
 
@@ -22,7 +22,7 @@ const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) =
 
 
     // If Max number of questions reached (numberOfQuestions), show score page
-    if (questionIdNumber === numberOfQuestions - 1) {
+    if (questionIdNumber === numberOfQuestions) {
         button =
             <Link href={`/score`} passHref>
                 <button> Show score </button>

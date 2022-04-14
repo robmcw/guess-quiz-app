@@ -3,7 +3,7 @@ import { Pie } from 'react-chartjs-2'
 
 export default function Home() {
 
-  const questionId = "0"
+  const questionId = "1"
 
   return (
     <div className={'flexContainer'}>
