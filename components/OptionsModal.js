@@ -7,15 +7,26 @@ import { useRouter } from 'next/router';
 
 // On click, communicate selection and match to amount selection to STATE in Question component
 
-const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2Text, option3Text, unit }) => {
+const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2Text, option3Text, unit, reset, setReset }) => {
 
     const dynamicRoute = useRouter().asPath
+
     useEffect(() => {
         setIsBrowser(true);
         setOption1Selected(false),
             setOption2Selected(false),
             setOption3Selected(false)
-    }, [dynamicRoute]);
+
+        // If reset button has been clicked, all options should show in modal
+        if (reset) {
+            console.log("Resetting options")
+            setOption1Selected(false)
+            setOption2Selected(false)
+            setOption3Selected(false)
+            setReset(false)
+        }
+
+    }, [dynamicRoute, reset, setReset])
 
     // Portal needed for modal. Here we put this in state to be used later.
     const [isBrowser, setIsBrowser] = useState(false);
