@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Piechart from '../../components/Piechart.js'
 import OptionsModal from '../../components/OptionsModal.js'
 import Results from '../../components/Results.js'
+import ResetButton from '../../components/ResetButton.js'
 
 export async function getStaticPaths() {
 
@@ -30,8 +31,6 @@ export async function getStaticPaths() {
     }
 
 }
-
-
 
 export const getStaticProps = async () => {
 
@@ -97,6 +96,8 @@ const Question = (props) => {
     const [guess2, setGuess2] = useState(null)
     const [guess3, setGuess3] = useState(null)
     const [showResults, setShowResults] = useState(false)
+    const [reset, setReset] = useState(false)
+
 
     // If all guesses comeplete, 'show results' button shows in Piechart component
     let guessesComplete = false
@@ -105,8 +106,14 @@ const Question = (props) => {
     }
 
     // Take guess option number and pass to guess state
-    const setGuessHandler = (guess) => {
-        if (guess1 === null) {
+    const setGuessHandler = (guess, reset) => {
+        if (reset) {
+            console.log("Resetting guesess")
+            setGuess1(null)
+            setGuess2(null)
+            setGuess3(null)
+        }
+        else if (guess1 === null) {
             setGuess1(guess)
         } else if (guess1 !== null & guess2 === null) {
             setGuess2(guess)
@@ -114,6 +121,13 @@ const Question = (props) => {
             setGuess3(guess)
         }
     }
+
+    const resetGuesses = () => {
+        "Restting guesses function running..."
+        setGuessHandler(null, true)
+        setReset(true)
+    }
+
     const guess = {
         ...guess1,
         ...guess2,
@@ -148,7 +162,15 @@ const Question = (props) => {
                 guessesComplete={guessesComplete}
                 setShowResults={setShowResults}
                 showResults={showResults}
+                reset={reset}
+                setReset={setReset}
             />
+
+            <ResetButton
+                guessesComplete={guessesComplete}
+                guess1={guess1}
+                onReset={resetGuesses}>
+            </ResetButton>
 
             <OptionsModal
                 onClose={() => setShowModal(false)
@@ -160,6 +182,8 @@ const Question = (props) => {
                 option1Text={question.option1Text}
                 option2Text={question.option2Text}
                 option3Text={question.option3Text}
+                reset={reset}
+                setReset={setReset}
             >
             </OptionsModal>
 

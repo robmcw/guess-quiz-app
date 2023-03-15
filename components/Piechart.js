@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { Pie } from 'react-chartjs-2'
 import styles from '../styles/Piechart.module.css'
 
-const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick, setSelectPie }) => {
+const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick, setSelectPie, reset, setReset }) => {
 
     const option1Amount = data.option1Amount
     const option1Index = data.option1Index
@@ -14,13 +14,23 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
     const option3Index = data.option3Index
     const unit = data.unit
 
-    // Reset states when new question rendered
+    // Reset states when new question is rendered
     const dynamicRoute = useRouter().asPath
     useEffect(() => {
         setPie1Selected(false),
             setPie2Selected(false),
             setPie3Selected(false)
-    }, [dynamicRoute])
+
+        // Resets piechart selections and sets Reset back to false when finished
+        if (reset) {
+            console.log("Resetting pie...")
+            setPie1Selected(false)
+            setPie2Selected(false)
+            setPie3Selected(false)
+            setReset(false)
+        }
+    }, [dynamicRoute, reset, setReset])
+
 
     // Pie select states used to set colour of segment (blue or grey)
     const [pie1Selected, setPie1Selected] = useState(false);
