@@ -41,8 +41,6 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <Component {...pageProps} />
-      <Analytics />
       <ScoreContext.Provider value={{
         score: score,
         value: value,
@@ -58,6 +56,7 @@ function MyApp({ Component, pageProps }) {
         ) : (
           <Layout>
             <Component {...pageProps} />
+            <Analytics />
           </Layout>
         )}
       </ScoreContext.Provider>
