@@ -6,8 +6,11 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import Router from "next/router";
 import ScoreContext from '../store/score-context'
+import { Analytics } from '@vercel/analytics/react';
+
 
 function MyApp({ Component, pageProps }) {
+
   const [loading, setLoading] = useState(false);
   const [score, setScore] = useState(0)
   const [value, setValue] = useState()
@@ -38,6 +41,8 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
+      <Component {...pageProps} />
+      <Analytics />
       <ScoreContext.Provider value={{
         score: score,
         value: value,
