@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import ScoreContext from "../store/score-context";
 import useCopy from "use-copy";
+import Contact from '../components/Contact';
 
 const Score = () => {
 
@@ -50,7 +51,10 @@ const Score = () => {
 
             {shareButton}
 
+            <Contact />
+
         </div>
+
     )
 }
 
