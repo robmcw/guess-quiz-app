@@ -9,18 +9,18 @@ h1 {
 }
 
 p {
-  font-size: 1.5rem;
+  font-size: 1rem;
   text-align: center;
 }
 
 a {
-  color: inherit;
+  color: #18A0FB;
   text-decoration: none;
 }
 
 button {
-  background-color: #18A0FB ; 
-  box-shadow: 0px 4px 5px 0px  rgb(70, 70, 70);
+  background-color: #18A0FB;
+  box-shadow: 0px 1px 2px 0px rgb(176, 176, 176);
   border: none;
   color: white;
   padding: 1rem 2rem;
@@ -30,8 +30,28 @@ button {
   border-radius: 0.25rem;
 }
 
+.button-sm {
+  background-color: #ffffff;
+  border: 1px solid #18A0FB;
+  color: #18A0FB;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  text-align: center;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 button:hover {
   cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  color: #eaeaea;
+  border: 1px solid #eaeaea;
 }
 
 main {
@@ -42,6 +62,13 @@ main {
   align-items: center;
 }
 
+input {
+  padding: 0.5rem 0.5rem;
+  margin: 1rem;
+  border: solid 1px #eaeaea;
+  border-radius: 0.25rem;
+}
+
 footer {
   font-size: 1rem;
   display: flex;
@@ -49,7 +76,7 @@ footer {
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
- 
+
 }
 
 footer a {
@@ -63,7 +90,8 @@ ul {
 
 .flexContainer {
   display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }

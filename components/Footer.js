@@ -2,9 +2,9 @@ const Footer = () => {
 
     return (
         <footer>
-            Like this app?&nbsp;
+            Made by&nbsp;
             <a href={`https://www.buymeacoffee.com/robmcw`} rel="noreferrer" target="_blank">
-                Buy me a coffee ☕️
+                Rob
             </a>
         </footer>
     )

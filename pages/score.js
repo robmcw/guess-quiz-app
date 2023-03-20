@@ -1,21 +1,22 @@
 import React, { useContext } from 'react'
 import ScoreContext from "../store/score-context";
 import useCopy from "use-copy";
+import Contact from '../components/Contact';
+import styles from '../styles/Score.module.css'
+
 
 const Score = () => {
 
     const ctx = useContext(ScoreContext);
-    const wrongCount = 5 - ctx.score
 
     const pie = "🥧".repeat(ctx.score)
-    const cross = "❌".repeat(5 - ctx.score)
 
     let pietext = ""
 
     ctx.score === 1 ? pietext = "pie" : pietext = "pies";
 
     const [copied, copy, setCopied] = useCopy
-        (` My Piece of Pie score was: ${ctx.score} ${pietext} out of 5 ${pie} ${cross} \n \n Can you do better? https://guess-quiz-app.vercel.app/ `)
+        (` My Piece of Pie score was: ${ctx.score} ${pietext} out of 5 ${pie} \n \n Can you do better? https://guess-quiz-app.vercel.app/ `)
 
 
     const copyText = () => {
@@ -28,7 +29,7 @@ const Score = () => {
     let shareButton =
         <button
             onClick={copyText}>
-            Share score
+            Share your score
         </button>
 
     if (copied) {
@@ -42,15 +43,22 @@ const Score = () => {
     return (
         <div className={"flexContainer"}>
             <h1>
-                Your Score
+                You&apos;re all done!
             </h1>
-            <p> You&apos;ve finished the quiz! </p>
 
-            <p> You got {ctx.score} out of 5 questions right.</p>
+            <h2> You got {ctx.score} out of 5 pies right </h2>
+
+            <p> {pie} </p>
 
             {shareButton}
 
+            <div className={styles.getAlerts}>
+
+                <Contact />
+
+            </div>
         </div>
+
     )
 }
 

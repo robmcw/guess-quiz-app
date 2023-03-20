@@ -45,8 +45,15 @@ export default function Home() {
 
       </div>
       <p>
-        5 scenarios. 5 piecharts. Can you match the numbers correctly?
+        Who&apos;s richer: Donald Trump or Mark Zuckerberg?
+
       </p>
+      <p>What&apos;s bigger: Lagos or New York?</p>
+      <p>
+        Play the quiz, match the segments and find out how much you really know.
+      </p>
+
+
       <Link href={`/question/${questionId}`} passHref>
         <button> Start </button>
       </Link>

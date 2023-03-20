@@ -145,7 +145,7 @@ const Question = (props) => {
     let questionTitle = null
     if (!guessesComplete) {
         questionTitle =
-            <h1>Here are 3 {question.title}. Click one to match it to a scenario.</h1>
+            <h1>Here are 3 {question.title}. Click a segment and match it to a thing.</h1>
     }
 
     const numberOfQuestions = Object.keys(props.questions).length
