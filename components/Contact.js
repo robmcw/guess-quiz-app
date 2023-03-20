@@ -21,17 +21,16 @@ const Contact = () => {
 
     // On submit, update state and use Nodemailer to send email with field input as contents
     const onSubmit = async (event) => {
-        setState((prev) => ({
-            ...prev,
-        }))
-
         try {
             // Prevent page refresh so emailSentBlock shows
             event.preventDefault()
 
             await sendContactForm(values)
-            setState(initState)
+
+            setState({ values: { email: '' } })
+
             setEmailSent(true)
+
         } catch (error) {
             console.error(error)
         }
@@ -63,7 +62,7 @@ const Contact = () => {
                     id="email"
                     name="email"
                     placeholder="youremail@email.com"
-                    value={values.email}
+                    value={state.values.email}
                     onChange={handleChange}
                     required
                 />
