@@ -94,7 +94,7 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
     if (guessesComplete && !showResults) {
         return (
             <div className={"flexContainer"}>
-                <h1> Gusses complete </h1>
+                <h1> Guesses complete </h1>
                 <button
                     onClick={event => {
                         setShowResults(true)
