@@ -3,6 +3,8 @@ import ScoreContext from "../store/score-context";
 import useCopy from "use-copy";
 import Contact from '../components/Contact';
 import styles from '../styles/Score.module.css'
+import ConfettiRain from '../components/ConfettiRain';
+
 
 
 const Score = () => {
@@ -10,9 +12,7 @@ const Score = () => {
     const ctx = useContext(ScoreContext);
 
     const pie = "🥧".repeat(ctx.score)
-
     let pietext = ""
-
     ctx.score === 1 ? pietext = "pie" : pietext = "pies";
 
     const [copied, copy, setCopied] = useCopy
@@ -25,6 +25,8 @@ const Score = () => {
             setCopied(false);
         }, 6000);
     }
+
+
 
     let shareButton =
         <button
@@ -40,8 +42,15 @@ const Score = () => {
             </button>
     }
 
+    let confetti = null
+    if (ctx.score === 5) {
+        confetti = <ConfettiRain />
+    }
+
     return (
+
         <div className={"flexContainer"}>
+            {confetti}
             <h1>
                 You&apos;re all done!
             </h1>
@@ -57,8 +66,8 @@ const Score = () => {
                 <Contact />
 
             </div>
-        </div>
 
+        </div>
     )
 }
 
