@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import ReactDOM from "react-dom";
 import styles from "../styles/OptionsModal.module.css"
 import { useRouter } from 'next/router';
+import Piechart from "./Piechart";
 
 // Check if question option has been selected beforehand. Ommit if it has. 
 
