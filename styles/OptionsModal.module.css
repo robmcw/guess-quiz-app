@@ -1,7 +1,7 @@
 .modal {
   background: #18A0FB;
   min-width: 100%;
-  min-height: 100%;
+
 }
 
 .modalOverlay {
@@ -10,10 +10,11 @@
   left: 0;
   min-width: 100%;
   min-height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #18A0FB;
 }
 
 .modalButtonGroup {
+  padding: 2rem;
   display: flex;
   flex-wrap: wrap;
   flex-flow: column;
@@ -21,7 +22,6 @@
   align-items: center;
   top: 25%;
   left: 25%;
-  height: 800px;
 }
 
 

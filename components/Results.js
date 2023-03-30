@@ -20,6 +20,28 @@ const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) =
     }, [correctAnswer])
 
 
+    // Group amount to text 
+
+    const resultsUnsorted = [
+        {
+            text: data.option1Text,
+            amount: data.option1Amount,
+        },
+
+        {
+            text: data.option2Text,
+            amount: data.option2Amount,
+        },
+
+        {
+            text: data.option3Text,
+            amount: data.option3Amount,
+        }
+    ]
+
+    // Sort by biggest amount first
+    const resultsSorted = resultsUnsorted.sort((firstItem, secondItem) => firstItem.amount - secondItem.amount).reverse();
+
 
     // If Max number of questions reached (numberOfQuestions), show score page
     if (questionIdNumber === numberOfQuestions) {
@@ -37,17 +59,17 @@ const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) =
 
     // If correct, show CORRECT page content
     if (show && correctAnswer) {
-
         return (
+
             <div className={"flexContainer"}>
 
                 <h1>
                     You nailed it! 😎
                 </h1>
 
-                <p>{data.option1Text}: {data.option1Amount} {data.unit} </p>
-                <p>{data.option2Text}: {data.option2Amount} {data.unit}  </p>
-                <p>{data.option3Text}: {data.option3Amount} {data.unit}  </p>
+                <p>{resultsSorted[0].text}: {resultsSorted[0].amount} {data.unit} </p>
+                <p>{resultsSorted[1].text}: {resultsSorted[1].amount} {data.unit}  </p>
+                <p>{resultsSorted[2].text}: {resultsSorted[2].amount} {data.unit}  </p>
 
                 {button}
             </div >
@@ -61,9 +83,9 @@ const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) =
                     Wrong! 😑
                 </h1>
 
-                <p>{data.option1Text}: <b> {data.option1Amount} {data.unit} </b></p>
-                <p>{data.option2Text}: <b> {data.option2Amount} {data.unit} </b></p>
-                <p>{data.option3Text}: <b> {data.option3Amount} {data.unit} </b> </p>
+                <p>{resultsSorted[0].text}: {resultsSorted[0].amount} {data.unit} </p>
+                <p>{resultsSorted[1].text}: {resultsSorted[1].amount} {data.unit}  </p>
+                <p>{resultsSorted[2].text}: {resultsSorted[2].amount} {data.unit}  </p>
 
                 {button}
 
