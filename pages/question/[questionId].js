@@ -5,6 +5,7 @@ import Piechart from '../../components/Piechart.js'
 import OptionsModal from '../../components/OptionsModal.js'
 import Results from '../../components/Results.js'
 import ResetButton from '../../components/ResetButton.js'
+import { collectionVersion } from '../../config/collectionVersion.js'
 
 export async function getStaticPaths() {
 
@@ -12,7 +13,7 @@ export async function getStaticPaths() {
     require('dotenv').config();
     const client = await MongoClient.connect(process.env.MONGODBCREDENTIALS);
     const db = client.db();
-    const questionsCollection = db.collection('questions');
+    const questionsCollection = db.collection(collectionVersion);
     const questions = await questionsCollection.find().toArray();
     client.close()
 
@@ -38,7 +39,7 @@ export const getStaticProps = async () => {
     require('dotenv').config();
     const client = await MongoClient.connect(process.env.MONGODBCREDENTIALS);
     const db = client.db();
-    const questionsCollection = db.collection('questions');
+    const questionsCollection = db.collection(collectionVersion);
     const questions = await questionsCollection.find().toArray();
     client.close()
 
