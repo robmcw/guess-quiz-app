@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React, { useContext, useEffect } from 'react'
 import ScoreContext from '../store/score-context'
+import { parseAmount } from '../lib/ParseAmount'
 
 const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) => {
 
@@ -21,7 +22,6 @@ const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) =
 
 
     // Group amount to text 
-
     const resultsUnsorted = [
         {
             text: data.option1Text,
@@ -39,7 +39,9 @@ const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) =
         }
     ]
 
-    // Sort by biggest amount first
+
+
+    // Sort by results by biggest amount first
     const resultsSorted = resultsUnsorted.sort((firstItem, secondItem) => firstItem.amount - secondItem.amount).reverse();
 
 
@@ -67,9 +69,9 @@ const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) =
                     You nailed it! 😎
                 </h1>
 
-                <p>{resultsSorted[0].text}: {resultsSorted[0].amount} {data.unit} </p>
-                <p>{resultsSorted[1].text}: {resultsSorted[1].amount} {data.unit}  </p>
-                <p>{resultsSorted[2].text}: {resultsSorted[2].amount} {data.unit}  </p>
+                <p>{resultsSorted[0].text}:  {parseAmount(resultsUnsorted[0].amount).toLocaleString('en-US')} {data.unit} </p>
+                <p>{resultsSorted[1].text}: {parseAmount(resultsUnsorted[1].amount).toLocaleString('en-US')} {data.unit}  </p>
+                <p>{resultsSorted[2].text}: {parseAmount(resultsUnsorted[2].amount).toLocaleString('en-US')} {data.unit}  </p>
 
                 {button}
             </div >
@@ -83,9 +85,9 @@ const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) =
                     Wrong! 😑
                 </h1>
 
-                <p>{resultsSorted[0].text}: {resultsSorted[0].amount} {data.unit} </p>
-                <p>{resultsSorted[1].text}: {resultsSorted[1].amount} {data.unit}  </p>
-                <p>{resultsSorted[2].text}: {resultsSorted[2].amount} {data.unit}  </p>
+                <p>{resultsSorted[0].text}: {parseAmount(resultsSorted[0].amount)} {data.unit} </p>
+                <p>{resultsSorted[1].text}: {parseAmount(resultsSorted[1].amount)} {data.unit}  </p>
+                <p>{resultsSorted[2].text}: {parseAmount(resultsSorted[2].amount)} {data.unit}  </p>
 
                 {button}
 
