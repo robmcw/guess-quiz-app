@@ -8,6 +8,8 @@ const Results = ({ questionId, data, show, guess, answer, numberOfQuestions }) =
     const questionIdNumber = parseInt(questionId)
 
     // This should now support decimal places
+
+    // To do: investigate issues with decimal places
     const correctAnswer = JSON.stringify(answer) === JSON.stringify(guess);
 
     let button = null
