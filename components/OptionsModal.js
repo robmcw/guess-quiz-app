@@ -11,13 +11,12 @@ import { parseAmount } from "../lib/ParseAmount";
 
 const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2Text, option3Text, unit, reset, setReset }) => {
 
+    const router = useRouter()
+
     const dynamicRoute = useRouter().asPath
 
     useEffect(() => {
         setIsBrowser(true);
-        setOption1Selected(false),
-            setOption2Selected(false),
-            setOption3Selected(false)
 
         // If reset button has been clicked, all options should show in modal
         if (reset) {
@@ -27,6 +26,22 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
             setOption3Selected(false)
             setReset(false)
         }
+
+        // WIP – If user hits back button in browser, close modal and don't navigate back
+        // router.beforePopState(() => {
+        //     {
+
+        //         onClose()
+        //         console.log("Closing modal via back button")
+
+        //     }
+        //     return false;
+        // });
+
+
+        // return () => {
+        //     router.beforePopState(() => false);
+        // };
 
     }, [dynamicRoute, reset, setReset])
 
@@ -54,7 +69,8 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
                 setOption3Selected(true)
                 break;
         }
-        onClose();
+        // Send evidence to onClose handler that an option was selected so it can decide whether to grey it out in piechart or reset piechart
+        onClose(buttonId);
     };
 
     const option1 = () => {
@@ -92,6 +108,10 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
         }
     }
 
+    const handleClose = () => {
+        onClose()
+    }
+
     // If show prop = true, show modal. Else null. 
     const modalContent = () => {
         if (show) {
@@ -99,7 +119,9 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
                 <div className={styles.modalOverlay} >
                     <div className={styles.modal} >
                         <div className={styles.modalHeader} >
-
+                            <button onClick={handleClose} className="close-btn">
+                                X
+                            </button>
                             <div className={styles.modalButtonGroup}>
                                 <h1> Do you think {parseAmount(pieSelect)} {unit} relates to:</h1>
                                 {option1()}
