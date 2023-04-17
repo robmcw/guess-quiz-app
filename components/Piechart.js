@@ -110,7 +110,7 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
                 <div className={styles.piechart}>
                     {<Pie
                         data={{
-                            labels: [parseAmount(option1Amount) + " " + unit, parseAmount(option2Amount) + " " + unit, parseAmount(option3Amount) + " " + unit],
+                            labels: [data.option1Text + " ", data.option2Text + " ", data.option3Text + " "],
                             datasets: [
                                 {
                                     label: '# of votes',
