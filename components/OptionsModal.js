@@ -147,7 +147,9 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
     if (isBrowser) {
         return ReactDOM.createPortal(
             modalContent(),
-            document.getElementById("modal-root")
+            document.getElementById("modal-root"),
+            window.scrollTo(0, 0)
+
         );
     } else {
         return null;
