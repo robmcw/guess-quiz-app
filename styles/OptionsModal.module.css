@@ -6,9 +6,12 @@
 
 .modalOverlay {
   position: absolute;
-  top: 0;
   left: 0;
-  min-width: 100%;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100%;
   min-height: 100%;
   background-color: #18A0FB;
 }
@@ -30,16 +33,23 @@
   margin: 2rem;
 }
 
-.modalButtonGroup button {
-  background-color: white;
-  box-shadow: 0px 4px 5px 0px rgb(70, 70, 70);
-  border: none;
-  color: #18A0FB;
+.optionButton {
   display: block;
   font-size: 1.25rem;
   border-radius: 0.25rem;
   cursor: pointer;
   max-height: 50%;
+  background-color: white;
+  box-shadow: 0px 4px 5px 0px rgb(70, 70, 70);
+  border: none;
+  color: #18A0FB;
+}
+
+.backButton {
+  text-decoration: underline;
+  background-color: none;
+  box-shadow: none;
+  color: white;
 }
 
 .buttongroup button:not(:last-child) {

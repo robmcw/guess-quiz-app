@@ -77,6 +77,7 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
         if (option1Selected === false) {
             return (
                 <button
+                    className={styles.optionButton}
                     onClick={event => {
                         addSelectionHandler(0, option1Text)
                     }}
@@ -89,6 +90,7 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
         if (option2Selected === false) {
             return (
                 <button
+                    className={styles.optionButton}
                     onClick={event => {
                         addSelectionHandler(1, option2Text)
                     }}
@@ -100,9 +102,11 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
     const option3 = () => {
         if (option3Selected === false) {
             return (
-                <button onClick={event => {
-                    addSelectionHandler(2, option3Text)
-                }}>
+                <button
+                    className={styles.optionButton}
+                    onClick={event => {
+                        addSelectionHandler(2, option3Text)
+                    }}>
                     {option3Text}</button>
             )
         }
@@ -116,21 +120,24 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
     const modalContent = () => {
         if (show) {
             return (
-                <div className={styles.modalOverlay} >
+                <div className={styles.modalOverlay}>
                     <div className={styles.modal} >
                         <div className={styles.modalHeader} >
-                            <button onClick={handleClose} className="close-btn">
-                                X
-                            </button>
                             <div className={styles.modalButtonGroup}>
                                 <h1> Do you think {parseAmount(pieSelect)} {unit} relates to:</h1>
                                 {option1()}
                                 {option2()}
                                 {option3()}
+                                <button
+                                    onClick={handleClose}
+                                    className={styles.backButton}>
+                                    Back
+                                </button>
                             </div>
+
                         </div>
                     </div>
-                </div>)
+                </div >)
         } else {
             null
         }
