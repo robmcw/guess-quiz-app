@@ -18,7 +18,7 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
     useEffect(() => {
         setIsBrowser(true);
 
-        // If reset button has been clicked, all options should show in modal
+        // If back button has been clicked (and therefore pie reset), all options should show in modal
         if (reset) {
             console.log("Resetting options")
             setOption1Selected(false)
@@ -28,22 +28,22 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
         }
 
         // WIP – If user hits back button in browser, close modal and don't navigate back
-        // router.beforePopState(() => {
-        //     {
+        router.beforePopState(() => {
+            {
+                window.history.pushState(null, null, router.asPath)
+                onClose()
 
-        //         onClose()
-        //         console.log("Closing modal via back button")
-
-        //     }
-        //     return false;
-        // });
+                console.log("Closing modal via back button")
+            }
+            return false;
+        });
 
 
-        // return () => {
-        //     router.beforePopState(() => false);
-        // };
+        return () => {
+            router.beforePopState(() => false);
+        };
 
-    }, [dynamicRoute, reset, setReset])
+    }, [dynamicRoute, reset, setReset, onClose, router])
 
     // Portal needed for modal. Here we put this in state to be used later.
     const [isBrowser, setIsBrowser] = useState(false);
