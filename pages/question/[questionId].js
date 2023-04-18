@@ -109,7 +109,7 @@ const Question = (props) => {
     // Take guess option number and pass to guess state
     const setGuessHandler = (guess, reset) => {
         if (reset) {
-            console.log("Resetting guesess")
+            console.log("setGuessHandler running")
             setGuess1(null)
             setGuess2(null)
             setGuess3(null)
@@ -124,7 +124,7 @@ const Question = (props) => {
     }
 
     const resetGuesses = () => {
-        "Restting guesses function running..."
+        console.log("Resetting guesses function running...")
         setGuessHandler(null, true)
         setReset(true)
     }
@@ -151,6 +151,15 @@ const Question = (props) => {
 
     const numberOfQuestions = Object.keys(props.questions).length
 
+    // Close modal and if no option was selected (because user used Close button), reset pie
+    const onClose = (buttonId) => {
+        setShowModal(false)
+        if (buttonId === undefined) {
+            resetGuesses()
+        }
+        { }
+    }
+
     return (
         <div className="flexContainer">
             {questionTitle}
@@ -167,15 +176,14 @@ const Question = (props) => {
                 setReset={setReset}
             />
 
-            <ResetButton
+            {/* <ResetButton
                 guessesComplete={guessesComplete}
                 guess1={guess1}
                 onReset={resetGuesses}>
-            </ResetButton>
+            </ResetButton> */}
 
             <OptionsModal
-                onClose={() => setShowModal(false)
-                }
+                onClose={onClose}
                 unit={question.unit}
                 show={showModal}
                 pieSelect={selectPie}
