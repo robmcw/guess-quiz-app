@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Pie } from 'react-chartjs-2'
-import styles from '../styles/Piechart.module.css'
 import { parseAmount } from '../lib/ParseAmount';
 
 const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick, setSelectPie, reset, setReset }) => {
@@ -107,7 +106,7 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
     } else if (!showResults) {
         return (
             <div>
-                <div className={styles.piechart}>
+                <div>
                     {<Pie
                         data={{
                             labels: [parseAmount(option1Amount) + " " + unit, parseAmount(option2Amount) + " " + unit, parseAmount(option3Amount) + " " + unit],
@@ -161,6 +160,7 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
                                     else e.target.style.cursor = 'default';
                                 }
                             }
+
                         }
                         }
                     />}
