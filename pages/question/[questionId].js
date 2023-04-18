@@ -176,11 +176,11 @@ const Question = (props) => {
                 setReset={setReset}
             />
 
-            <ResetButton
+            {/* <ResetButton
                 guessesComplete={guessesComplete}
                 guess1={guess1}
                 onReset={resetGuesses}>
-            </ResetButton>
+            </ResetButton> */}
 
             <OptionsModal
                 onClose={onClose}

@@ -16,7 +16,7 @@ const Score = () => {
     ctx.score === 1 ? pietext = "pie" : pietext = "pies";
 
     const [copied, copy, setCopied] = useCopy
-        (` My Piece of Pie score was: ${ctx.score} ${pietext} out of 5 ${pie} \n \n Can you do better? https://guess-quiz-app.vercel.app/ `)
+        (` My Piece of Pie score was: ${ctx.score} ${pietext} out of 5 ${pie} \n \n Can you do better? https://pieceofpie.app/`)
 
 
     const copyText = () => {

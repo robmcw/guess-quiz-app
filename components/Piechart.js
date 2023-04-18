@@ -161,13 +161,6 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
                                     else e.target.style.cursor = 'default';
                                 }
                             }
-
-                            // TO DO – enable hover but only on segments that have not been selected. 
-
-                            // onHover: (event, chartElement) => {
-                            //     event.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
-                            // }
-
                         }
                         }
                     />}
