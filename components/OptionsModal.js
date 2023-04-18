@@ -124,7 +124,7 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
                     <div className={styles.modal} >
                         <div className={styles.modalHeader} >
                             <div className={styles.modalButtonGroup}>
-                                <h1> Do you think {parseAmount(pieSelect)} {unit} relates to:</h1>
+                                <h2> Do you think {parseAmount(pieSelect)} {unit} relates to:</h2>
                                 {option1()}
                                 {option2()}
                                 {option3()}
