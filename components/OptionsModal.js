@@ -27,7 +27,7 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
             setReset(false)
         }
 
-        // WIP – If user hits back button in browser, close modal and don't navigate back
+        // If user hits back button in browser, close modal and don't navigate back
         router.beforePopState(() => {
             {
                 window.history.pushState(null, null, router.asPath)
@@ -149,7 +149,6 @@ const OptionsModal = ({ show, onClose, pieSelect, onGuess, option1Text, option2T
             modalContent(),
             document.getElementById("modal-root"),
             window.scrollTo(0, 0)
-
         );
     } else {
         return null;
