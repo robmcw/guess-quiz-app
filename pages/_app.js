@@ -7,9 +7,10 @@ import { useEffect, useState } from 'react'
 import Router from "next/router";
 import ScoreContext from '../store/score-context'
 import { Analytics } from '@vercel/analytics/react';
+import { SessionProvider } from 'next-auth/react'
 
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, session }) {
 
   const [loading, setLoading] = useState(false);
   const [score, setScore] = useState(0)
@@ -41,25 +42,28 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <ScoreContext.Provider value={{
-        score: score,
-        value: value,
-        onCorrectAnswer: scoreHandler
-      }}>
-        <Head>
-          <title>Piece of Pie</title>
-          <meta name="description" content="5 scenarios. 5 piecharts. Can you match them?" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        {loading ? (
-          <Loader />
-        ) : (
-          <Layout>
-            <Component {...pageProps} />
-            <Analytics />
-          </Layout>
-        )}
-      </ScoreContext.Provider>
+      <SessionProvider session={session}>
+        <ScoreContext.Provider value={{
+          score: score,
+          value: value,
+          onCorrectAnswer: scoreHandler
+        }}>
+          <Head>
+            <title>Piece of Pie</title>
+            <meta name="description" content="5 scenarios. 5 piecharts. Can you match them?" />
+            <link rel="icon" href="/favicon.ico" />
+            <link href="https://fonts.cdnfonts.com/css/darumadrop-one" rel="stylesheet"></link>
+          </Head>
+          {loading ? (
+            <Loader />
+          ) : (
+            <Layout>
+              <Component {...pageProps} />
+              <Analytics />
+            </Layout>
+          )}
+        </ScoreContext.Provider>
+      </SessionProvider>
     </>
   )
 }

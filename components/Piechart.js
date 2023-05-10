@@ -90,6 +90,12 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
         }
     }
 
+    const sortLabels = (legendItem) => {
+        console.log("Sorting lables")
+        legendItem.sort()
+        return legendItem
+    }
+
 
     // If all pie segments are selected, show Results button, else show options
     if (guessesComplete && !showResults) {
@@ -150,7 +156,13 @@ const Piechart = ({ data, showResults, setShowResults, guessesComplete, onClick,
                                 enabled: false
                             },
                             legend: {
-                                display: true
+                                display: true,
+                                // WIP – does not sort
+                                // labels: {
+                                //     sort: function (a, b) {
+                                //         return - 1
+                                //     }
+                                // }
                             },
                             hover: {
                                 // { mode: null },
