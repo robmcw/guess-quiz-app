@@ -1,1 +1,1 @@
-export const collectionVersion = "questions-5"
+export const collectionVersion = "questions-6"
